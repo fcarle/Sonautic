@@ -1,0 +1,67 @@
+can you help me build teh UI for this web app: Sonautic is an enterprise learning platform for music schools, conservatoires, and universities. It gives educators a full view of student progress (submissions, timelines, lessons) and lets them set and review assignments with audio/video playback and feedback. Students practice, submit work, manage files, track stats, and get help from Sonny AI, which analyzes their materials and offers tips and next steps.  ￼
+
+Who it’s for
+	•	Institutions & admins: org setup, user management, calendar syncing, and oversight.  ￼
+	•	Educators (teachers/professors): create assignments, review submissions, see student “CRM”-style timelines, schedule events, and track deadlines.  ￼
+	•	Students: upload practice files (audio/video/pdf/text), organize a personal “Files” workspace, track practice stats, manage tasks/events, and use Sonny AI for guidance.  ￼
+
+Core features (short list)
+	•	Assignments & reviews: set requirements, due dates, attachments; educators listen/watch student recordings and give targeted feedback.  ￼
+	•	Progress visibility: per-student timelines, upcoming auditions/competitions/lessons, and submission queues for educators.  ￼
+	•	Calendar & tasks: shared events and professor-assigned tasks (with distinct styling/permissions), plus student self-tasks.  ￼
+	•	Files tab (student workspace): a cloud-like area to organize music and materials, integrated with assignments.  ￼
+	•	Community (optional): Connect to find ensemble partners; internal feed with visibility controls and approvals.  ￼
+	•	Sonny AI: permissioned AI assistant that can inspect a student’s data and provide advice, stats, next steps, and batch actions where allowed.  ￼
+
+⸻
+
+Deliverables for Debashis (Oct 22)
+
+1) “More liquid glass” visual style
+	•	Apply a subtle, glossy “glass” treatment across cards/modals to echo Apple’s translucent panels (blurred backgrounds, soft highlights, rounded corners).
+
+2) Sonny AI (chat area)
+	•	Action buttons in the input bar: quick chips for “Analyze last take,” “Summarize practice week,” “Create plan,” “Set task,” “Add to calendar.”
+	•	Voice mode: replace the generic “OpenAI circle” with a minimal whale animation while listening/processing.
+	•	Mic module: a mic icon in the input that toggles recording (press-and-hold or tap-to-toggle), with level meter + recording timer; mirror ChatGPT’s UX patterns for send/stop states.
+
+3) Homepages (two variants)
+
+Students
+	•	“6 assignments due”, “5 events tomorrow”, Countdown: “Competition in 14 days”.
+	•	Practice stats: past 7 days bar row (e.g., 4.0h, 3.3h, 3.7h… randomized for mock).
+	•	Events timeline (this week / next week): bars for “lesson”, “competition”, “audition”, “masterclass”, “concert”.
+	•	Top bar: Overview, Assignments, Tasks, Events, Deadlines, Timeline.  ￼
+
+Educators
+	•	“6 submissions to review”, “3 assignments to set”, “5 lessons tomorrow”, Countdown: “Competition in 14 days”.
+	•	Student deadlines timeline module.
+	•	Top bar: Overview, Submissions, Assignments, Events, Deadlines (countdown), Timeline.  ￼
+
+4) Files tab
+	•	Use the existing prototype’s functionality at prototype.sonautic.app as a spec reference, but redesign the UI to feel “Apple-native”: clean hierarchy, large tappable rows, generous spacing, consistent iconography, and predictable empty states. (Keep it as the student’s personal workspace that also supports assignment attachments.)  ￼
+
+5) Ext. Tasks tab
+	•	Keep features from the prototype but make the layout calmer and more proportionate.
+	•	Remove the “hand” and “figure/bar” items from metadata.
+	•	Use clear labels, subdued dividers, and consistent typographic scale; align with the Apple-like visual language.  ￼
+
+⸻
+
+Quick IA (menus) to align builds
+	•	Students: Home / Files / Sonny AI / Tasks / Calendar / Connect / Stats / Settings.  ￼
+	•	Educators: Home / Files / Sonny AI / Assignments / Students / Connect / Calendar / Stats / Settings.  ￼
+
+⸻
+
+Acceptance checklist (so we can mark this “done”)
+	•	AI input has button menu + working mic control with “whale” listen animation.
+	•	Student Home shows due counts, events, countdown, 7-day practice bars, and timeline bands.
+	•	Educator Home shows review/set counts, lessons, countdown, and deadlines timeline.
+	•	Files tab matches prototype capabilities with Apple-style polish and clear empty states.  ￼
+	•	Ext. Tasks tab: removed “hand/figure/bar” metadata; spacing and typography standardized.
+	•	Top navs match S/E variants.  ￼
+
+If you want, I can also draft the component list (cards, charts, counters, timeline bars, mic widget) and the sample mock data for the dashboards so your Figma matches the exact numbers/labels you asked for.
+
+jsut make the UI you dont needto make any fuction work it should be just to show
