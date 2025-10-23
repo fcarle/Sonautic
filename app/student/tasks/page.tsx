@@ -3,10 +3,15 @@
 import React, { useState } from 'react'
 import { DashboardLayout } from '@/components/DashboardLayout'
 import { GlassCard } from '@/components/GlassCard'
-import { CheckSquare, Circle, Calendar, Flag, Plus, Filter } from 'lucide-react'
+import { CheckSquare, Circle, Calendar, Flag, Plus, Filter, Upload, X, Mic, Music, FileAudio, Loader } from 'lucide-react'
 
 export default function TasksPage() {
   const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all')
+  const [showSubmitModal, setShowSubmitModal] = useState(false)
+  const [selectedTask, setSelectedTask] = useState<any>(null)
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null)
+  const [isUploading, setIsUploading] = useState(false)
+  const [recordingNote, setRecordingNote] = useState('')
 
   const tasks = [
     {
@@ -70,6 +75,38 @@ export default function TasksPage() {
     if (filter === 'completed') return task.completed
     return true
   })
+
+  const handleSubmitWork = (task: any) => {
+    setSelectedTask(task)
+    setShowSubmitModal(true)
+  }
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setUploadedFile(e.target.files[0])
+    }
+  }
+
+  const handleSubmit = async () => {
+    if (!uploadedFile) return
+    
+    setIsUploading(true)
+    // Simulate upload
+    setTimeout(() => {
+      setIsUploading(false)
+      setShowSubmitModal(false)
+      setUploadedFile(null)
+      setRecordingNote('')
+      // Here you would typically show a success message
+    }, 2000)
+  }
+
+  const handleCloseModal = () => {
+    setShowSubmitModal(false)
+    setUploadedFile(null)
+    setRecordingNote('')
+    setSelectedTask(null)
+  }
 
   return (
     <DashboardLayout type="student">
@@ -146,19 +183,31 @@ export default function TasksPage() {
                   
                   <p className="text-gray-400 mb-3">{task.description}</p>
                   
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className={`text-xs px-2 py-1 rounded-full ${
-                      task.assignedBy === 'Self' 
-                        ? 'bg-purple-500/20 text-purple-400' 
-                        : 'bg-blue-500/20 text-blue-400'
-                    }`}>
-                      {task.assignedBy === 'Self' ? 'Self-assigned' : `Assigned by ${task.assignedBy}`}
-                    </span>
-                    {task.tags.map((tag, tagIndex) => (
-                      <span key={tagIndex} className="text-xs px-2 py-1 rounded-full glass-subtle">
-                        {tag}
+                  <div className="flex items-center justify-between gap-2 flex-wrap">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className={`text-xs px-2 py-1 rounded-full ${
+                        task.assignedBy === 'Self' 
+                          ? 'bg-purple-500/20 text-purple-400' 
+                          : 'bg-blue-500/20 text-blue-400'
+                      }`}>
+                        {task.assignedBy === 'Self' ? 'Self-assigned' : `Assigned by ${task.assignedBy}`}
                       </span>
-                    ))}
+                      {task.tags.map((tag, tagIndex) => (
+                        <span key={tagIndex} className="text-xs px-2 py-1 rounded-full glass-subtle">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    
+                    {!task.completed && task.tags.includes('Recording') && (
+                      <button
+                        onClick={() => handleSubmitWork(task)}
+                        className="glass-strong px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-white/15 transition-all text-sm"
+                      >
+                        <Upload size={16} />
+                        Submit Work
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -176,6 +225,130 @@ export default function TasksPage() {
           </GlassCard>
         )}
       </div>
+
+      {/* Submit Work Modal */}
+      {showSubmitModal && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="glass-strong rounded-2xl max-w-2xl w-full p-6 shadow-2xl border border-white/10">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h2 className="text-2xl font-bold mb-1">Submit Recording</h2>
+                <p className="text-gray-400 text-sm">{selectedTask?.title}</p>
+              </div>
+              <button
+                onClick={handleCloseModal}
+                className="p-2 hover:bg-white/10 rounded-lg transition-all"
+              >
+                <X size={24} />
+              </button>
+            </div>
+
+            {/* Upload Area */}
+            <div className="mb-6">
+              <label className="block text-sm font-medium mb-3">Recording File</label>
+              <div className="relative">
+                <input
+                  type="file"
+                  accept="audio/*,video/*"
+                  onChange={handleFileChange}
+                  className="hidden"
+                  id="file-upload"
+                />
+                <label
+                  htmlFor="file-upload"
+                  className="glass border-2 border-dashed border-white/20 rounded-xl p-8 flex flex-col items-center justify-center cursor-pointer hover:border-white/40 hover:bg-white/5 transition-all"
+                >
+                  {uploadedFile ? (
+                    <>
+                      <FileAudio size={48} className="mb-3 text-green-400" />
+                      <p className="text-lg font-medium mb-1">{uploadedFile.name}</p>
+                      <p className="text-sm text-gray-400">
+                        {(uploadedFile.size / (1024 * 1024)).toFixed(2)} MB
+                      </p>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault()
+                          setUploadedFile(null)
+                        }}
+                        className="mt-3 text-sm text-red-400 hover:text-red-300"
+                      >
+                        Remove file
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <Upload size={48} className="mb-3 text-gray-400" />
+                      <p className="text-lg font-medium mb-1">
+                        Click to upload or drag and drop
+                      </p>
+                      <p className="text-sm text-gray-400">
+                        Audio or video files (MP3, WAV, MP4, etc.)
+                      </p>
+                    </>
+                  )}
+                </label>
+              </div>
+            </div>
+
+            {/* Recording Tips */}
+            <div className="glass-subtle rounded-xl p-4 mb-6">
+              <div className="flex items-start gap-3">
+                <Mic size={20} className="text-blue-400 mt-0.5 flex-shrink-0" />
+                <div>
+                  <h3 className="font-semibold mb-1">Recording Tips</h3>
+                  <ul className="text-sm text-gray-400 space-y-1">
+                    <li>• Ensure good audio quality and minimal background noise</li>
+                    <li>• Record in a quiet environment</li>
+                    <li>• Play through the entire piece without stopping</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Notes Section */}
+            <div className="mb-6">
+              <label className="block text-sm font-medium mb-2">
+                Additional Notes (Optional)
+              </label>
+              <textarea
+                value={recordingNote}
+                onChange={(e) => setRecordingNote(e.target.value)}
+                placeholder="Any comments about this recording..."
+                className="w-full glass rounded-xl p-4 min-h-[100px] resize-none focus:outline-none focus:ring-2 focus:ring-blue-400/50 placeholder-gray-500"
+              />
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex gap-3">
+              <button
+                onClick={handleCloseModal}
+                className="flex-1 glass px-6 py-3 rounded-xl hover:bg-white/10 transition-all font-medium"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSubmit}
+                disabled={!uploadedFile || isUploading}
+                className="flex-1 glass-strong px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500/20 to-purple-500/20 hover:from-blue-500/30 hover:to-purple-500/30 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium flex items-center justify-center gap-2"
+              >
+                {isUploading ? (
+                  <>
+                    <Loader size={20} className="animate-spin" />
+                    Uploading...
+                  </>
+                ) : (
+                  <>
+                    <Upload size={20} />
+                    Submit Recording
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </DashboardLayout>
   )
 }

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { 
   Home, FileText, Bot, CheckSquare, Calendar, 
@@ -73,12 +74,21 @@ export const Sidebar: React.FC<SidebarProps> = ({ type }) => {
         <div className="p-6 border-b border-white/10">
           <div className="flex items-center justify-between">
             {!isCollapsed && (
-              <div>
-                <div className="text-2xl font-bold bg-gradient-to-r from-primary-500 to-primary-300 bg-clip-text text-transparent">
-                  Sonautic
-                </div>
-                <div className="text-xs text-gray-400 mt-1">
-                  {type === 'student' ? 'Student Portal' : 'Educator Portal'}
+              <div className="flex items-center gap-3">
+                <Image
+                  src={theme === 'dark' ? '/sonautic_logo_white_on_black.png' : '/sonautic_logo_blue.png'}
+                  alt="Sonautic Logo"
+                  width={40}
+                  height={40}
+                  className="object-contain"
+                />
+                <div>
+                  <div className="text-2xl font-bold bg-gradient-to-r from-primary-500 to-primary-300 bg-clip-text text-transparent">
+                    Sonautic
+                  </div>
+                  <div className="text-xs text-gray-400 mt-1">
+                    {type === 'student' ? 'Student Portal' : 'Educator Portal'}
+                  </div>
                 </div>
               </div>
             )}
@@ -93,8 +103,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ type }) => {
             </button>
           </div>
           {isCollapsed && (
-            <div className="text-2xl font-bold bg-gradient-to-r from-primary-500 to-primary-300 bg-clip-text text-transparent text-center mt-2">
-              S
+            <div className="flex flex-col items-center gap-2">
+              <Image
+                src={theme === 'dark' ? '/sonautic_logo_white_on_black.png' : '/sonautic_logo_blue.png'}
+                alt="Sonautic Logo"
+                width={32}
+                height={32}
+                className="object-contain"
+              />
             </div>
           )}
         </div>
