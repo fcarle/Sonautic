@@ -29,6 +29,21 @@ export default function EducatorFilesPage() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('list')
   const [activeTab, setActiveTab] = useState<'all' | 'teaching' | 'submissions' | 'shared'>('all')
 
+  // Helper function to get progress bar color based on percentage
+  const getProgressColor = (progress: number) => {
+    if (progress < 30) {
+      return 'linear-gradient(90deg, #EF4444, #DC2626)' // red
+    } else if (progress < 50) {
+      return 'linear-gradient(90deg, #F97316, #EA580C)' // orange
+    } else if (progress < 70) {
+      return 'linear-gradient(90deg, #EAB308, #CA8A04)' // yellow
+    } else if (progress < 85) {
+      return 'linear-gradient(90deg, #84CC16, #65A30D)' // light green
+    } else {
+      return 'linear-gradient(90deg, #22C55E, #16A34A)' // green
+    }
+  }
+
   const folders = [
     { name: 'Curriculum Materials', count: 156, icon: BookOpen },
     { name: 'Student Submissions', count: 89, icon: Users },
@@ -221,7 +236,7 @@ export default function EducatorFilesPage() {
             <div className={`h-2 rounded-full overflow-hidden ${
               theme === 'dark' ? 'bg-white/5' : 'bg-gray-200'
             }`}>
-              <div className="h-full" style={{ width: '52.5%', background: '#39497E' }}></div>
+              <div className="h-full transition-all duration-300" style={{ width: '52.5%', background: getProgressColor(52.5) }}></div>
             </div>
           </GlassCard>
 

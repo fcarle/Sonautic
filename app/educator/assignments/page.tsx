@@ -32,6 +32,21 @@ export default function AssignmentsPage() {
   const [activeTab, setActiveTab] = useState<'active' | 'draft' | 'completed' | 'all'>('active')
   const [showNewModal, setShowNewModal] = useState(false)
 
+  // Helper function to get progress bar color based on percentage
+  const getProgressColor = (progress: number) => {
+    if (progress < 30) {
+      return 'linear-gradient(90deg, #EF4444, #DC2626)' // red
+    } else if (progress < 50) {
+      return 'linear-gradient(90deg, #F97316, #EA580C)' // orange
+    } else if (progress < 70) {
+      return 'linear-gradient(90deg, #EAB308, #CA8A04)' // yellow
+    } else if (progress < 85) {
+      return 'linear-gradient(90deg, #84CC16, #65A30D)' // light green
+    } else {
+      return 'linear-gradient(90deg, #22C55E, #16A34A)' // green
+    }
+  }
+
   const assignments = [
     {
       id: 1,
@@ -585,10 +600,10 @@ export default function AssignmentsPage() {
                         theme === 'dark' ? 'bg-white/5' : 'bg-gray-200'
                       }`}>
                         <div 
-                          className="h-full transition-all"
+                          className="h-full transition-all duration-300"
                           style={{ 
                             width: `${assignment.assignedTo > 0 ? (assignment.submitted / assignment.assignedTo) * 100 : 0}%`,
-                            background: '#39497E'
+                            background: getProgressColor(assignment.assignedTo > 0 ? (assignment.submitted / assignment.assignedTo) * 100 : 0)
                           }}
                         ></div>
                       </div>
