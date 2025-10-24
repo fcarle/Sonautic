@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import { DashboardLayout } from '@/components/DashboardLayout'
 import { GlassCard } from '@/components/GlassCard'
+import { useTheme } from '@/components/ThemeProvider'
 import { 
   GraduationCap,
   Search,
@@ -28,8 +29,10 @@ import {
 } from 'lucide-react'
 
 export default function StudentsPage() {
+  const { theme } = useTheme()
   const [selectedStudent, setSelectedStudent] = useState<number | null>(null)
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('list')
+  const [activeTab, setActiveTab] = useState<'all' | 'advanced' | 'intermediate' | 'beginner'>('all')
 
   const students = [
     {
@@ -185,236 +188,258 @@ export default function StudentsPage() {
     return <span className="px-2 py-1 rounded-full text-xs font-medium bg-green-500/20 text-green-300">Active</span>
   }
 
+  const filteredStudents = activeTab === 'all' 
+    ? students 
+    : students.filter(s => s.level.toLowerCase() === activeTab)
+
   return (
     <DashboardLayout type="educator">
-      <div className="p-8">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-4xl font-bold mb-2">Students</h1>
-            <p className="text-gray-400">View progress, timelines, and manage your students</p>
+      <div className="w-full flex justify-center">
+        <div className="p-8 w-full max-w-6xl">
+          {/* Header */}
+          <div className="mb-8">
+            <h1 className="text-3xl font-semibold mb-1">Students</h1>
           </div>
-          <button className="glass-strong px-5 py-2.5 rounded-xl flex items-center gap-2 hover:bg-white/15 transition-all">
-            <Plus size={18} />
-            <span className="font-medium">Add Student</span>
-          </button>
-        </div>
 
-        {/* Stats Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <GlassCard className="p-5">
-            <div className="flex items-center justify-between mb-2">
-              <div className="text-sm text-gray-400">Total Students</div>
-              <GraduationCap size={18} className="text-blue-400" />
+          {/* Controls */}
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex gap-2">
+              <button
+                onClick={() => setActiveTab('all')}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  activeTab === 'all' 
+                    ? 'text-white shadow-md border border-white/20' 
+                    : 'bg-white/10 text-gray-400 hover:bg-white/15'
+                }`}
+                style={activeTab === 'all' ? { background: '#39497E' } : {}}
+              >
+                All Students
+              </button>
+              <button
+                onClick={() => setActiveTab('advanced')}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  activeTab === 'advanced' 
+                    ? 'text-white shadow-md border border-white/20' 
+                    : 'bg-white/10 text-gray-400 hover:bg-white/15'
+                }`}
+                style={activeTab === 'advanced' ? { background: '#39497E' } : {}}
+              >
+                Advanced
+              </button>
+              <button
+                onClick={() => setActiveTab('intermediate')}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  activeTab === 'intermediate' 
+                    ? 'text-white shadow-md border border-white/20' 
+                    : 'bg-white/10 text-gray-400 hover:bg-white/15'
+                }`}
+                style={activeTab === 'intermediate' ? { background: '#39497E' } : {}}
+              >
+                Intermediate
+              </button>
+              <button
+                onClick={() => setActiveTab('beginner')}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  activeTab === 'beginner' 
+                    ? 'text-white shadow-md border border-white/20' 
+                    : 'bg-white/10 text-gray-400 hover:bg-white/15'
+                }`}
+                style={activeTab === 'beginner' ? { background: '#39497E' } : {}}
+              >
+                Beginner
+              </button>
             </div>
-            <div className="text-3xl font-bold">{students.length}</div>
-          </GlassCard>
-          
-          <GlassCard className="p-5">
-            <div className="flex items-center justify-between mb-2">
-              <div className="text-sm text-gray-400">Avg Practice Hours</div>
-              <Clock size={18} className="text-purple-400" />
-            </div>
-            <div className="text-3xl font-bold">
-              {(students.reduce((sum, s) => sum + s.practiceHours, 0) / students.length).toFixed(1)}h
-            </div>
-          </GlassCard>
-          
-          <GlassCard className="p-5">
-            <div className="flex items-center justify-between mb-2">
-              <div className="text-sm text-gray-400">Pending Reviews</div>
-              <AlertCircle size={18} className="text-yellow-400" />
-            </div>
-            <div className="text-3xl font-bold">
-              {students.reduce((sum, s) => sum + s.assignmentsPending, 0)}
-            </div>
-          </GlassCard>
-          
-          <GlassCard className="p-5">
-            <div className="flex items-center justify-between mb-2">
-              <div className="text-sm text-gray-400">Avg Grade</div>
-              <Award size={18} className="text-green-400" />
-            </div>
-            <div className="text-3xl font-bold">
-              {Math.round(students.reduce((sum, s) => sum + s.averageGrade, 0) / students.length)}%
-            </div>
-          </GlassCard>
-        </div>
-
-        {/* Controls */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex gap-2">
-            <button className="glass-strong px-4 py-2 rounded-xl font-medium transition-all">
-              All Students
-            </button>
-            <button className="hover:bg-white/5 px-4 py-2 rounded-xl font-medium transition-all">
-              Advanced
-            </button>
-            <button className="hover:bg-white/5 px-4 py-2 rounded-xl font-medium transition-all">
-              Intermediate
-            </button>
-            <button className="hover:bg-white/5 px-4 py-2 rounded-xl font-medium transition-all">
-              Beginner
-            </button>
-          </div>
-          
-          <div className="flex items-center gap-3">
-            <GlassCard className="px-4 py-2 flex items-center gap-2">
-              <Search size={18} className="text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search students..."
-                className="bg-transparent outline-none text-white placeholder-gray-500 w-48"
-              />
-            </GlassCard>
-            <button className="glass-subtle px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-white/10 transition-all">
-              <Filter size={18} />
-              <span>Filter</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Students List */}
-        <div className="space-y-4">
-          {students.map((student) => (
-            <GlassCard key={student.id} className="p-6 hover:bg-white/5 transition-all">
-              <div className="flex items-start justify-between mb-4">
-                {/* Student Info */}
-                <div className="flex items-start gap-4 flex-1">
-                  <div className="w-16 h-16 rounded-xl glass-strong flex items-center justify-center text-xl font-bold">
-                    {student.avatar}
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-xl font-semibold">{student.name}</h3>
-                      {getStatusBadge(student.status)}
-                      <span className="text-sm text-gray-400">
-                        {student.instrument} • {student.level} • {student.year}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-4 text-sm text-gray-400 mb-3">
-                      <div className="flex items-center gap-1">
-                        <Mail size={14} />
-                        {student.email}
-                      </div>
-                      <span>•</span>
-                      <div className="flex items-center gap-1">
-                        <Calendar size={14} />
-                        Next lesson: {student.nextLesson}
-                      </div>
-                    </div>
-
-                    {/* Stats Row */}
-                    <div className="grid grid-cols-4 gap-4">
-                      <div className="glass-subtle p-3 rounded-lg">
-                        <div className="text-xs text-gray-400 mb-1">Practice Hours</div>
-                        <div className="flex items-center gap-2">
-                          <div className="text-lg font-bold">{student.practiceHours}h</div>
-                          <div className={`flex items-center text-xs ${student.practiceChange > 0 ? 'text-green-400' : 'text-red-400'}`}>
-                            {student.practiceChange > 0 ? <TrendingUp size={12} /> : <TrendingDown size={12} />}
-                            {Math.abs(student.practiceChange)}%
-                          </div>
-                        </div>
-                      </div>
-                      <div className="glass-subtle p-3 rounded-lg">
-                        <div className="text-xs text-gray-400 mb-1">Assignments</div>
-                        <div className="text-lg font-bold">
-                          {student.assignmentsCompleted}/{student.assignmentsCompleted + student.assignmentsPending}
-                        </div>
-                      </div>
-                      <div className="glass-subtle p-3 rounded-lg">
-                        <div className="text-xs text-gray-400 mb-1">Avg Grade</div>
-                        <div className="text-lg font-bold">{student.averageGrade}%</div>
-                      </div>
-                      <div className="glass-subtle p-3 rounded-lg">
-                        <div className="text-xs text-gray-400 mb-1">Last Submission</div>
-                        <div className="text-sm font-medium">{student.lastSubmission}</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Actions */}
-                <div className="flex items-center gap-2">
-                  <button 
-                    onClick={() => setSelectedStudent(selectedStudent === student.id ? null : student.id)}
-                    className="glass-subtle px-4 py-2 rounded-xl hover:bg-white/10 transition-all text-sm"
-                  >
-                    <Eye size={16} className="inline mr-2" />
-                    {selectedStudent === student.id ? 'Hide' : 'View'} Timeline
-                  </button>
-                  <button className="glass-subtle px-3 py-2 rounded-xl hover:bg-white/10 transition-all">
-                    <MessageSquare size={16} />
-                  </button>
-                  <button className="glass-subtle px-3 py-2 rounded-xl hover:bg-white/10 transition-all">
-                    <MoreVertical size={16} />
-                  </button>
-                </div>
+            
+            <div className="flex items-center gap-3">
+              <div className={`flex items-center gap-3 px-4 py-3 border rounded-lg focus-within:border-indigo-500 transition-colors ${
+                theme === 'dark' 
+                  ? 'bg-white/5 border-white/10' 
+                  : 'bg-gray-50 border-gray-300'
+              }`}>
+                <Search size={18} className="text-gray-400" />
+                <input
+                  type="text"
+                  placeholder="Search students..."
+                  className={`bg-transparent outline-none ${
+                    theme === 'dark' ? 'text-white placeholder-gray-500' : 'text-gray-900 placeholder-gray-400'
+                  } w-48`}
+                />
               </div>
+              <button className={`px-4 py-3 rounded-lg flex items-center gap-2 transition-all border ${
+                theme === 'dark' 
+                  ? 'bg-white/5 border-white/10 hover:bg-white/10' 
+                  : 'bg-gray-100 border-gray-200 hover:bg-gray-200'
+              }`}>
+                <Filter size={18} />
+                <span>Filter</span>
+              </button>
+            </div>
+          </div>
 
-              {/* Timeline - CRM Style */}
-              {selectedStudent === student.id && (
-                <div className="mt-6 pt-6 border-t border-white/10">
-                  <h4 className="text-sm font-semibold mb-4 flex items-center gap-2">
-                    <Clock size={16} />
-                    Recent Activity Timeline
-                  </h4>
-                  <div className="space-y-3">
-                    {student.recentActivity.map((activity, index) => (
-                      <div key={index} className="flex items-start gap-3 glass-subtle p-4 rounded-lg hover:bg-white/5 transition-all">
-                        <div className="p-2 glass rounded-lg mt-0.5">
-                          {getActivityIcon(activity.type)}
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-1">
-                            <div className="font-medium">{activity.title}</div>
-                            {activity.status === 'needs-review' && (
-                              <span className="px-2 py-0.5 rounded-full text-xs bg-yellow-500/20 text-yellow-300">
-                                Needs Review
-                              </span>
-                            )}
-                            {activity.status === 'reviewed' && (
-                              <span className="px-2 py-0.5 rounded-full text-xs bg-green-500/20 text-green-300">
-                                Reviewed
-                              </span>
-                            )}
-                            {activity.status === 'missed' && (
-                              <span className="px-2 py-0.5 rounded-full text-xs bg-red-500/20 text-red-300">
-                                Missed
-                              </span>
-                            )}
-                          </div>
-                          <div className="text-xs text-gray-400">{activity.time}</div>
-                        </div>
-                        {activity.status === 'needs-review' && (
-                          <button className="glass-strong px-3 py-1.5 rounded-lg text-xs hover:bg-white/15 transition-all">
-                            Review Now
-                          </button>
-                        )}
+          {/* Students List */}
+          <div className="space-y-4">
+            {filteredStudents.map((student) => (
+              <GlassCard key={student.id} className={`p-6 transition-all group border shadow-md ${
+                theme === 'dark' 
+                  ? 'border-white/10 bg-white/5 hover:bg-white/10 shadow-black/30 hover:shadow-black/40' 
+                  : 'border-gray-200 bg-white hover:bg-gray-50 shadow-gray-300/30 hover:shadow-gray-400/40'
+              }`}>
+                <div className="flex items-start justify-between mb-4">
+                  {/* Student Info */}
+                  <div className="flex items-start gap-4 flex-1">
+                    <div 
+                      className={`w-16 h-16 rounded-xl flex items-center justify-center text-xl font-bold border ${
+                        theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-gray-100 border-gray-200'
+                      }`}
+                      style={{ color: '#39497E' }}
+                    >
+                      {student.avatar}
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2">
+                        <h3 
+                          className="text-xl font-semibold transition-colors"
+                          style={{ color: 'inherit' }}
+                          onMouseEnter={(e) => e.currentTarget.style.color = '#39497E'}
+                          onMouseLeave={(e) => e.currentTarget.style.color = 'inherit'}
+                        >
+                          {student.name}
+                        </h3>
+                        {getStatusBadge(student.status)}
+                        <span className="text-sm text-gray-400">
+                          {student.instrument} • {student.level} • {student.year}
+                        </span>
                       </div>
-                    ))}
+                      <div className="flex items-center gap-4 text-sm text-gray-400">
+                        <div className="flex items-center gap-1">
+                          <Mail size={14} />
+                          {student.email}
+                        </div>
+                        <span>•</span>
+                        <div className="flex items-center gap-1">
+                          <Calendar size={14} />
+                          Next lesson: {student.nextLesson}
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <button className="w-full mt-4 glass-subtle py-2 rounded-lg text-sm hover:bg-white/10 transition-all">
-                    View Full Timeline
-                  </button>
+
+                  {/* Actions */}
+                  <div className="flex items-center gap-2">
+                    <button 
+                      onClick={() => setSelectedStudent(selectedStudent === student.id ? null : student.id)}
+                      className="px-4 py-2 text-white rounded-lg text-sm font-medium transition-all backdrop-blur-xl border border-white/20 shadow-sm hover:shadow-md flex items-center gap-2"
+                      style={{ background: 'linear-gradient(135deg, rgba(57, 73, 126, 0.9), rgba(57, 73, 126, 0.7))' }}
+                    >
+                      <Eye size={16} />
+                      {selectedStudent === student.id ? 'Hide' : 'View'} Timeline
+                    </button>
+                    <button className={`p-2 rounded-lg transition-all ${
+                      theme === 'dark' ? 'hover:bg-white/10' : 'hover:bg-gray-200'
+                    }`}>
+                      <MessageSquare size={16} />
+                    </button>
+                    <button className={`p-2 rounded-lg transition-all ${
+                      theme === 'dark' ? 'hover:bg-white/10' : 'hover:bg-gray-200'
+                    }`}>
+                      <MoreVertical size={16} />
+                    </button>
+                  </div>
                 </div>
+
+                {/* Timeline - CRM Style */}
+                {selectedStudent === student.id && (
+                  <div className={`mt-6 pt-6 border-t ${
+                    theme === 'dark' ? 'border-white/10' : 'border-gray-200'
+                  }`}>
+                    <h4 className="text-sm font-semibold mb-4 flex items-center gap-2">
+                      <Clock size={16} />
+                      Recent Activity Timeline
+                    </h4>
+                    <div className="space-y-3">
+                      {student.recentActivity.map((activity, index) => (
+                        <div key={index} className={`flex items-start gap-3 p-4 rounded-lg border transition-all ${
+                          theme === 'dark' 
+                            ? 'bg-white/5 hover:bg-white/10 border-white/10' 
+                            : 'bg-gray-50 hover:bg-gray-100 border-gray-200'
+                        }`}>
+                          <div className={`p-2 rounded-lg mt-0.5 ${
+                            theme === 'dark' ? 'bg-white/5' : 'bg-gray-100'
+                          }`}>
+                            {getActivityIcon(activity.type)}
+                          </div>
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-1">
+                              <div className="font-medium">{activity.title}</div>
+                              {activity.status === 'needs-review' && (
+                                <span className="px-2 py-0.5 rounded-full text-xs bg-yellow-500/20 text-yellow-300">
+                                  Needs Review
+                                </span>
+                              )}
+                              {activity.status === 'reviewed' && (
+                                <span className="px-2 py-0.5 rounded-full text-xs bg-green-500/20 text-green-300">
+                                  Reviewed
+                                </span>
+                              )}
+                              {activity.status === 'missed' && (
+                                <span className="px-2 py-0.5 rounded-full text-xs bg-red-500/20 text-red-300">
+                                  Missed
+                                </span>
+                              )}
+                            </div>
+                            <div className="text-xs text-gray-400">{activity.time}</div>
+                          </div>
+                          {activity.status === 'needs-review' && (
+                            <button 
+                              className="px-3 py-1.5 text-white rounded-lg text-xs font-medium transition-all backdrop-blur-xl border border-white/20 shadow-sm hover:shadow-md"
+                              style={{ background: 'linear-gradient(135deg, rgba(57, 73, 126, 0.9), rgba(57, 73, 126, 0.7))' }}
+                            >
+                              Review Now
+                            </button>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                    <button className={`w-full mt-4 py-2 rounded-lg text-sm transition-all border ${
+                      theme === 'dark' 
+                        ? 'bg-white/5 hover:bg-white/10 border-white/10' 
+                        : 'bg-gray-50 hover:bg-gray-100 border-gray-200'
+                    }`}>
+                      View Full Timeline
+                    </button>
+                  </div>
+                )}
+              </GlassCard>
+            ))}
+          </div>
+
+          {/* Empty State */}
+          {filteredStudents.length === 0 && (
+            <GlassCard className={`p-16 text-center border shadow-lg ${
+              theme === 'dark' 
+                ? 'border-white/10 bg-white/5 shadow-black/30' 
+                : 'border-gray-200 bg-white shadow-gray-300/30'
+            }`}>
+              <GraduationCap size={64} className="mx-auto mb-4 text-gray-600" />
+              <h3 className="text-2xl font-semibold mb-2">No students found</h3>
+              <p className="text-gray-400 mb-6">
+                {activeTab === 'all' 
+                  ? 'Add your first student to get started'
+                  : `No ${activeTab} level students found`
+                }
+              </p>
+              {activeTab === 'all' && (
+                <button 
+                  className="px-6 py-3 text-white rounded-lg text-sm font-medium transition-all backdrop-blur-xl border border-white/20 shadow-sm hover:shadow-md inline-flex items-center gap-2"
+                  style={{ background: 'linear-gradient(135deg, rgba(57, 73, 126, 0.9), rgba(57, 73, 126, 0.7))' }}
+                >
+                  <Plus size={18} />
+                  Add Student
+                </button>
               )}
             </GlassCard>
-          ))}
+          )}
         </div>
-
-        {/* Empty State */}
-        {students.length === 0 && (
-          <GlassCard className="p-16 text-center">
-            <GraduationCap size={64} className="mx-auto mb-4 text-gray-600" />
-            <h3 className="text-2xl font-semibold mb-2">No students yet</h3>
-            <p className="text-gray-400 mb-6">Add your first student to get started</p>
-            <button className="glass-strong px-6 py-3 rounded-xl hover:bg-white/15 transition-all">
-              <Plus size={18} className="inline mr-2" />
-              Add Student
-            </button>
-          </GlassCard>
-        )}
       </div>
     </DashboardLayout>
   )

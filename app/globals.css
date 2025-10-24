@@ -49,29 +49,30 @@ body {
   background: var(--glass-bg);
   backdrop-filter: blur(10px);
   border: 1px solid var(--glass-border);
-  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 }
 
 .glass-strong {
   background: var(--glass-strong-bg);
   backdrop-filter: blur(12px);
   border: 1px solid var(--glass-strong-border);
-  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.12);
 }
 
 .glass-subtle {
   background: var(--glass-subtle-bg);
   backdrop-filter: blur(8px);
   border: 1px solid var(--glass-subtle-border);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 /* Light mode specific adjustments */
 [data-theme='light'] .glass {
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
 }
 
 [data-theme='light'] .glass-strong {
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
 }
 
 /* Custom scrollbar */

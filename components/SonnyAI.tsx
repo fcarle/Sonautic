@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { GlassCard } from './GlassCard'
-import { Send, Mic, Square, Sparkles, TrendingUp, Calendar, CheckSquare, BarChart } from 'lucide-react'
+import { Send, Mic, Square, Sparkles, TrendingUp, Calendar, CheckSquare, BarChart, History, Plus, ArrowUp } from 'lucide-react'
 
 const WhaleAnimation: React.FC<{ isListening: boolean }> = ({ isListening }) => {
   return (
@@ -99,12 +99,32 @@ export const SonnyAI: React.FC = () => {
   const [recordingTime, setRecordingTime] = useState(0)
   const [voiceLevel, setVoiceLevel] = useState(0.5)
   const [isVoiceMode, setIsVoiceMode] = useState(false)
-  const [messages, setMessages] = useState([
+  const [showHistory, setShowHistory] = useState(false)
+  const [messages, setMessages] = useState<Array<{ role: string; content: string }>>([])
+  
+  // Sample conversation history
+  const [conversationHistory] = useState([
     {
-      role: 'assistant',
-      content: "Hi! I'm Sonny, your AI music practice assistant. I can help you analyze your recordings, plan your practice sessions, and track your progress. What would you like to work on today?"
+      id: 1,
+      title: 'How to practice octaves on the piano?',
+      date: 'Today',
+      preview: 'Let me help you with practicing octaves effectively...'
+    },
+    {
+      id: 2,
+      title: 'Help with sight-reading',
+      date: 'Yesterday',
+      preview: 'Sight-reading is a crucial skill...'
+    },
+    {
+      id: 3,
+      title: 'Rhythm exercises for beginners',
+      date: '2 days ago',
+      preview: 'Here are some great rhythm exercises...'
     }
   ])
+
+  const hasStartedConversation = messages.length > 0
 
   const quickActions = [
     { icon: <Sparkles size={16} />, label: 'Analyze last take', color: 'blue' },
@@ -130,6 +150,21 @@ export const SonnyAI: React.FC = () => {
     }
   }
 
+  const handleSendMessage = () => {
+    if (message.trim()) {
+      setMessages([...messages, { role: 'user', content: message }])
+      setMessage('')
+      // Here you would typically send to AI and get response
+    }
+  }
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      handleSendMessage()
+    }
+  }
+
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60)
     const secs = seconds % 60
@@ -137,94 +172,217 @@ export const SonnyAI: React.FC = () => {
   }
 
   return (
-    <div className="h-full flex flex-col">
-      {/* Chat messages */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-4">
-        {messages.map((msg, index) => (
-          <div
-            key={index}
-            className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-          >
-            <div
-              className={`max-w-2xl ${
-                msg.role === 'user'
-                  ? 'glass-strong rounded-2xl p-4'
-                  : 'glass rounded-2xl p-4'
-              }`}
-            >
-              {msg.role === 'assistant' && (
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center">
-                    <Sparkles size={16} />
-                  </div>
-                  <span className="font-semibold">Sonny</span>
-                </div>
-              )}
-              <p className="text-gray-100 leading-relaxed">{msg.content}</p>
+    <div className="h-full flex flex-col relative">
+      {/* History Sidebar */}
+      {showHistory && (
+        <div className="absolute right-0 top-0 bottom-0 w-64 glass-strong border-l border-white/10 z-10 overflow-hidden flex flex-col">
+          <div className="p-4 border-b border-white/10">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-lg font-bold">History</h2>
+              <button
+                onClick={() => setShowHistory(false)}
+                className="p-1.5 hover:bg-white/10 rounded-lg transition-colors"
+              >
+                ✕
+              </button>
             </div>
+            <button className="w-full glass-subtle rounded-lg px-3 py-2 text-xs font-medium hover:glass transition-all flex items-center justify-center gap-2">
+              <Plus size={14} />
+              <span>New Chat</span>
+            </button>
           </div>
-        ))}
-        
-        {/* Voice mode visualization */}
-        {isVoiceMode && (
-          <GlassCard className="p-6">
-            <WhaleAnimation isListening={isRecording} />
+          <div className="flex-1 overflow-y-auto p-3 space-y-2">
+            {conversationHistory.map((conv) => (
+              <button
+                key={conv.id}
+                className="w-full text-left p-3 glass-subtle rounded-lg hover:glass transition-all"
+              >
+                <div className="font-medium text-xs mb-1 truncate">{conv.title}</div>
+                <div className="text-xs text-gray-400">{conv.date}</div>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* History Toggle Button */}
+      <button
+        onClick={() => setShowHistory(!showHistory)}
+        className="absolute top-6 right-6 p-3 glass-subtle rounded-xl hover:glass transition-all z-20"
+        title="View History"
+      >
+        <History size={20} />
+      </button>
+
+      {!hasStartedConversation ? (
+        // Empty state - centered greeting
+        <div className="flex-1 flex flex-col items-center justify-center px-6 pb-32">
+          <h1 className="text-4xl md:text-5xl font-bold text-center mb-4 bg-gradient-to-br from-primary-400 to-primary-600 bg-clip-text text-transparent">
+            Good afternoon, David!
+          </h1>
+          <p className="text-xl md:text-2xl text-gray-300 text-center mb-12">
+            How can I help you?
+          </p>
+
+          {/* Input area - centered */}
+          <div className="w-full max-w-3xl">
+            <GlassCard className="p-4">
+              <div className="flex items-center gap-3">
+                <button
+                  className="p-3 rounded-xl glass-subtle hover:glass transition-all shrink-0"
+                  title="Add attachment"
+                >
+                  <Plus size={20} />
+                </button>
+                
+                <input
+                  type="text"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder="How to practice octaves on the piano?"
+                  className="flex-1 bg-transparent outline-none text-white placeholder-gray-500"
+                  disabled={isRecording}
+                />
+                
+                <button
+                  onClick={toggleRecording}
+                  className={`p-3 rounded-xl transition-all shrink-0 ${
+                    isRecording
+                      ? 'bg-red-500/30 text-red-400 hover:bg-red-500/40'
+                      : 'glass-subtle hover:glass'
+                  }`}
+                  title={isRecording ? 'Stop recording' : 'Voice input'}
+                >
+                  {isRecording ? <Square size={20} /> : <Mic size={20} />}
+                </button>
+
+                <button
+                  onClick={handleSendMessage}
+                  disabled={!message.trim()}
+                  className={`p-3 rounded-full transition-all shrink-0 ${
+                    message.trim()
+                      ? 'bg-primary-500 text-white hover:bg-primary-600'
+                      : 'bg-gray-700 text-gray-500 cursor-not-allowed'
+                  }`}
+                  title="Send message"
+                >
+                  <ArrowUp size={20} />
+                </button>
+              </div>
+            </GlassCard>
+
+            {/* Voice visualization when recording */}
             {isRecording && (
-              <div className="text-center">
-                <div className="text-2xl font-bold mb-2">{formatTime(recordingTime)}</div>
-                <div className="text-sm text-gray-400 mb-4">Listening...</div>
-                <VoiceLevelMeter level={voiceLevel} />
+              <div className="mt-6">
+                <GlassCard className="p-6">
+                  <WhaleAnimation isListening={isRecording} />
+                  <div className="text-center">
+                    <div className="text-2xl font-bold mb-2">{formatTime(recordingTime)}</div>
+                    <div className="text-sm text-gray-400 mb-4">Listening...</div>
+                    <VoiceLevelMeter level={voiceLevel} />
+                  </div>
+                </GlassCard>
               </div>
             )}
-          </GlassCard>
-        )}
-      </div>
-
-      {/* Quick actions */}
-      <div className="px-6 pb-4">
-        <div className="flex flex-wrap gap-2">
-          {quickActions.map((action, index) => (
-            <button
-              key={index}
-              className="glass-subtle rounded-xl px-4 py-2 text-sm font-medium hover:glass transition-all flex items-center gap-2"
-            >
-              {action.icon}
-              <span>{action.label}</span>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Input area */}
-      <div className="p-6 pt-0">
-        <GlassCard className="p-4">
-          <div className="flex items-center gap-3">
-            <button
-              onClick={toggleRecording}
-              className={`p-3 rounded-xl transition-all ${
-                isRecording
-                  ? 'bg-red-500/30 text-red-400 hover:bg-red-500/40'
-                  : 'bg-primary-500/20 text-primary-400 hover:bg-primary-500/30'
-              }`}
-            >
-              {isRecording ? <Square size={20} /> : <Mic size={20} />}
-            </button>
-            
-            <input
-              type="text"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              placeholder="Ask Sonny anything about your practice..."
-              className="flex-1 bg-transparent outline-none text-white placeholder-gray-500"
-              disabled={isRecording}
-            />
-            
-            <button className="p-3 rounded-xl bg-primary-500/20 text-primary-400 hover:bg-primary-500/30 transition-all">
-              <Send size={20} />
-            </button>
           </div>
-        </GlassCard>
-      </div>
+        </div>
+      ) : (
+        // Active conversation state
+        <>
+          {/* Chat messages */}
+          <div className="flex-1 overflow-y-auto p-6 space-y-4">
+            {messages.map((msg, index) => (
+              <div
+                key={index}
+                className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+              >
+                <div
+                  className={`max-w-2xl ${
+                    msg.role === 'user'
+                      ? 'glass-strong rounded-2xl p-4'
+                      : 'glass rounded-2xl p-4'
+                  }`}
+                >
+                  {msg.role === 'assistant' && (
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center">
+                        <Sparkles size={16} />
+                      </div>
+                      <span className="font-semibold">Sonny</span>
+                    </div>
+                  )}
+                  <p className="text-gray-100 leading-relaxed">{msg.content}</p>
+                </div>
+              </div>
+            ))}
+            
+            {/* Voice mode visualization */}
+            {isVoiceMode && (
+              <GlassCard className="p-6">
+                <WhaleAnimation isListening={isRecording} />
+                {isRecording && (
+                  <div className="text-center">
+                    <div className="text-2xl font-bold mb-2">{formatTime(recordingTime)}</div>
+                    <div className="text-sm text-gray-400 mb-4">Listening...</div>
+                    <VoiceLevelMeter level={voiceLevel} />
+                  </div>
+                )}
+              </GlassCard>
+            )}
+          </div>
+
+          {/* Quick actions */}
+          <div className="px-6 pb-4">
+            <div className="flex flex-wrap gap-2">
+              {quickActions.map((action, index) => (
+                <button
+                  key={index}
+                  className="glass-subtle rounded-xl px-4 py-2 text-sm font-medium hover:glass transition-all flex items-center gap-2"
+                >
+                  {action.icon}
+                  <span>{action.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Input area */}
+          <div className="p-6 pt-0">
+            <GlassCard className="p-4">
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={toggleRecording}
+                  className={`p-3 rounded-xl transition-all ${
+                    isRecording
+                      ? 'bg-red-500/30 text-red-400 hover:bg-red-500/40'
+                      : 'bg-primary-500/20 text-primary-400 hover:bg-primary-500/30'
+                  }`}
+                >
+                  {isRecording ? <Square size={20} /> : <Mic size={20} />}
+                </button>
+                
+                <input
+                  type="text"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder="Ask Sonny anything about your practice..."
+                  className="flex-1 bg-transparent outline-none text-white placeholder-gray-500"
+                  disabled={isRecording}
+                />
+                
+                <button
+                  onClick={handleSendMessage}
+                  className="p-3 rounded-xl bg-primary-500/20 text-primary-400 hover:bg-primary-500/30 transition-all"
+                >
+                  <Send size={20} />
+                </button>
+              </div>
+            </GlassCard>
+          </div>
+        </>
+      )}
     </div>
   )
 }

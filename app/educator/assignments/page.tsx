@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import { DashboardLayout } from '@/components/DashboardLayout'
 import { GlassCard } from '@/components/GlassCard'
+import { useTheme } from '@/components/ThemeProvider'
 import { 
   ClipboardList,
   Plus,
@@ -27,6 +28,7 @@ import {
 } from 'lucide-react'
 
 export default function AssignmentsPage() {
+  const { theme } = useTheme()
   const [activeTab, setActiveTab] = useState<'active' | 'draft' | 'completed' | 'all'>('active')
   const [showNewModal, setShowNewModal] = useState(false)
 
@@ -119,9 +121,9 @@ export default function AssignmentsPage() {
 
   const getTypeIcon = (type: string) => {
     switch (type) {
-      case 'audio': return <FileAudio size={18} className="text-blue-400" />
-      case 'video': return <FileVideo size={18} className="text-purple-400" />
-      case 'text': return <FileText size={18} className="text-green-400" />
+      case 'audio': return <FileAudio size={18} style={{ color: '#39497E' }} />
+      case 'video': return <FileVideo size={18} style={{ color: '#39497E' }} />
+      case 'text': return <FileText size={18} style={{ color: '#39497E' }} />
       default: return <Music size={18} className="text-gray-400" />
     }
   }
@@ -171,21 +173,24 @@ export default function AssignmentsPage() {
 
   return (
     <DashboardLayout type="educator">
-      <div className="p-8">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-4xl font-bold mb-2">Assignments</h1>
-            <p className="text-gray-400">Create, manage, and review student assignments</p>
+      <div className="w-full flex justify-center">
+        <div className="p-8 w-full max-w-6xl">
+          {/* Header */}
+          <div className="mb-8">
+            <h1 className="text-3xl font-semibold mb-1">Assignments</h1>
           </div>
-          <button 
-            onClick={() => setShowNewModal(true)}
-            className="glass-strong px-5 py-2.5 rounded-xl flex items-center gap-2 hover:bg-white/15 transition-all"
-          >
-            <Plus size={18} />
-            <span className="font-medium">Create Assignment</span>
-          </button>
-        </div>
+
+          {/* Action Button */}
+          <div className="flex items-center justify-end mb-8">
+            <button 
+              onClick={() => setShowNewModal(true)}
+              className="px-5 py-3 text-white rounded-lg text-sm font-medium transition-all backdrop-blur-xl border border-white/20 shadow-sm hover:shadow-md flex items-center gap-2"
+              style={{ background: 'linear-gradient(135deg, rgba(57, 73, 126, 0.9), rgba(57, 73, 126, 0.7))' }}
+            >
+              <Plus size={18} />
+              <span>Create Assignment</span>
+            </button>
+          </div>
 
         {/* Create Assignment Modal */}
         {showNewModal && (
@@ -380,111 +385,160 @@ export default function AssignmentsPage() {
         )}
 
 
-        {/* Stats Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <GlassCard className="p-5">
-            <div className="flex items-center justify-between mb-2">
-              <div className="text-sm text-gray-400">Active Assignments</div>
-              <ClipboardList size={18} className="text-blue-400" />
-            </div>
-            <div className="text-3xl font-bold">{stats.active}</div>
-          </GlassCard>
-          
-          <GlassCard className="p-5">
-            <div className="flex items-center justify-between mb-2">
-              <div className="text-sm text-gray-400">Drafts</div>
-              <Edit size={18} className="text-gray-400" />
-            </div>
-            <div className="text-3xl font-bold">{stats.draft}</div>
-          </GlassCard>
-          
-          <GlassCard className="p-5">
-            <div className="flex items-center justify-between mb-2">
-              <div className="text-sm text-gray-400">Needs Review</div>
-              <AlertCircle size={18} className="text-yellow-400" />
-            </div>
-            <div className="text-3xl font-bold">{stats.needsReview}</div>
-          </GlassCard>
-          
-          <GlassCard className="p-5">
-            <div className="flex items-center justify-between mb-2">
-              <div className="text-sm text-gray-400">Total Students</div>
-              <Users size={18} className="text-green-400" />
-            </div>
-            <div className="text-3xl font-bold">{stats.totalStudents}</div>
-          </GlassCard>
-        </div>
-
-        {/* Controls Bar */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex gap-2">
-            <button
-              onClick={() => setActiveTab('all')}
-              className={`px-4 py-2 rounded-xl font-medium transition-all ${
-                activeTab === 'all' ? 'glass-strong' : 'hover:bg-white/5'
-              }`}
-            >
-              All
-            </button>
-            <button
-              onClick={() => setActiveTab('active')}
-              className={`px-4 py-2 rounded-xl font-medium transition-all ${
-                activeTab === 'active' ? 'glass-strong' : 'hover:bg-white/5'
-              }`}
-            >
-              Active
-            </button>
-            <button
-              onClick={() => setActiveTab('draft')}
-              className={`px-4 py-2 rounded-xl font-medium transition-all ${
-                activeTab === 'draft' ? 'glass-strong' : 'hover:bg-white/5'
-              }`}
-            >
-              Drafts
-            </button>
-            <button
-              onClick={() => setActiveTab('completed')}
-              className={`px-4 py-2 rounded-xl font-medium transition-all ${
-                activeTab === 'completed' ? 'glass-strong' : 'hover:bg-white/5'
-              }`}
-            >
-              Completed
-            </button>
-          </div>
-          
-          <div className="flex items-center gap-3">
-            <GlassCard className="px-4 py-2 flex items-center gap-2">
-              <Search size={18} className="text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search assignments..."
-                className="bg-transparent outline-none text-white placeholder-gray-500 w-48"
-              />
+          {/* Stats Overview */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+            <GlassCard className={`p-5 border shadow-md ${
+              theme === 'dark' 
+                ? 'border-white/10 bg-white/5 shadow-black/30' 
+                : 'border-gray-200 bg-white shadow-gray-300/30'
+            }`}>
+              <div className="flex items-center justify-between mb-2">
+                <div className="text-sm text-gray-400">Active Assignments</div>
+                <ClipboardList size={18} style={{ color: '#39497E' }} />
+              </div>
+              <div className="text-3xl font-bold" style={{ color: '#39497E' }}>{stats.active}</div>
             </GlassCard>
-            <button className="glass-subtle px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-white/10 transition-all">
-              <Filter size={18} />
-              <span>Filter</span>
-            </button>
+            
+            <GlassCard className={`p-5 border shadow-md ${
+              theme === 'dark' 
+                ? 'border-white/10 bg-white/5 shadow-black/30' 
+                : 'border-gray-200 bg-white shadow-gray-300/30'
+            }`}>
+              <div className="flex items-center justify-between mb-2">
+                <div className="text-sm text-gray-400">Drafts</div>
+                <Edit size={18} style={{ color: '#39497E' }} />
+              </div>
+              <div className="text-3xl font-bold" style={{ color: '#39497E' }}>{stats.draft}</div>
+            </GlassCard>
+            
+            <GlassCard className={`p-5 border shadow-md ${
+              theme === 'dark' 
+                ? 'border-white/10 bg-white/5 shadow-black/30' 
+                : 'border-gray-200 bg-white shadow-gray-300/30'
+            }`}>
+              <div className="flex items-center justify-between mb-2">
+                <div className="text-sm text-gray-400">Needs Review</div>
+                <AlertCircle size={18} style={{ color: '#39497E' }} />
+              </div>
+              <div className="text-3xl font-bold" style={{ color: '#39497E' }}>{stats.needsReview}</div>
+            </GlassCard>
+            
+            <GlassCard className={`p-5 border shadow-md ${
+              theme === 'dark' 
+                ? 'border-white/10 bg-white/5 shadow-black/30' 
+                : 'border-gray-200 bg-white shadow-gray-300/30'
+            }`}>
+              <div className="flex items-center justify-between mb-2">
+                <div className="text-sm text-gray-400">Total Students</div>
+                <Users size={18} style={{ color: '#39497E' }} />
+              </div>
+              <div className="text-3xl font-bold" style={{ color: '#39497E' }}>{stats.totalStudents}</div>
+            </GlassCard>
           </div>
-        </div>
 
-        {/* Assignments List */}
-        <div className="space-y-4">
-          {filteredAssignments.length > 0 ? (
-            filteredAssignments.map((assignment) => (
-              <GlassCard key={assignment.id} className="p-6 hover:bg-white/5 transition-all group">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-start gap-4 flex-1">
-                    <div className="p-3 glass-subtle rounded-xl">
-                      {getTypeIcon(assignment.type)}
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-xl font-semibold group-hover:text-blue-400 transition-colors">
-                          {assignment.title}
-                        </h3>
-                        {getStatusBadge(assignment)}
+          {/* Controls Bar */}
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex gap-2">
+              <button
+                onClick={() => setActiveTab('all')}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  activeTab === 'all' 
+                    ? 'text-white shadow-md border border-white/20' 
+                    : 'bg-white/10 text-gray-400 hover:bg-white/15'
+                }`}
+                style={activeTab === 'all' ? { background: '#39497E' } : {}}
+              >
+                All
+              </button>
+              <button
+                onClick={() => setActiveTab('active')}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  activeTab === 'active' 
+                    ? 'text-white shadow-md border border-white/20' 
+                    : 'bg-white/10 text-gray-400 hover:bg-white/15'
+                }`}
+                style={activeTab === 'active' ? { background: '#39497E' } : {}}
+              >
+                Active
+              </button>
+              <button
+                onClick={() => setActiveTab('draft')}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  activeTab === 'draft' 
+                    ? 'text-white shadow-md border border-white/20' 
+                    : 'bg-white/10 text-gray-400 hover:bg-white/15'
+                }`}
+                style={activeTab === 'draft' ? { background: '#39497E' } : {}}
+              >
+                Drafts
+              </button>
+              <button
+                onClick={() => setActiveTab('completed')}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  activeTab === 'completed' 
+                    ? 'text-white shadow-md border border-white/20' 
+                    : 'bg-white/10 text-gray-400 hover:bg-white/15'
+                }`}
+                style={activeTab === 'completed' ? { background: '#39497E' } : {}}
+              >
+                Completed
+              </button>
+            </div>
+            
+            <div className="flex items-center gap-3">
+              <div className={`flex items-center gap-3 px-4 py-3 border rounded-lg focus-within:border-indigo-500 transition-colors ${
+                theme === 'dark' 
+                  ? 'bg-white/5 border-white/10' 
+                  : 'bg-gray-50 border-gray-300'
+              }`}>
+                <Search size={18} className="text-gray-400" />
+                <input
+                  type="text"
+                  placeholder="Search assignments..."
+                  className={`bg-transparent outline-none ${
+                    theme === 'dark' ? 'text-white placeholder-gray-500' : 'text-gray-900 placeholder-gray-400'
+                  } w-48`}
+                />
+              </div>
+              <button className={`px-4 py-3 rounded-lg flex items-center gap-2 transition-all border ${
+                theme === 'dark' 
+                  ? 'bg-white/5 border-white/10 hover:bg-white/10' 
+                  : 'bg-gray-100 border-gray-200 hover:bg-gray-200'
+              }`}>
+                <Filter size={18} />
+                <span>Filter</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Assignments List */}
+          <div className="space-y-4">
+            {filteredAssignments.length > 0 ? (
+              filteredAssignments.map((assignment) => (
+                <GlassCard key={assignment.id} className={`p-6 transition-all group border shadow-md ${
+                  theme === 'dark' 
+                    ? 'border-white/10 bg-white/5 hover:bg-white/10 shadow-black/30 hover:shadow-black/40' 
+                    : 'border-gray-200 bg-white hover:bg-gray-50 shadow-gray-300/30 hover:shadow-gray-400/40'
+                }`}>
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-start gap-4 flex-1">
+                      <div className={`p-3 rounded-xl ${
+                        theme === 'dark' ? 'bg-white/5' : 'bg-gray-100'
+                      }`}>
+                        {getTypeIcon(assignment.type)}
                       </div>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <h3 
+                            className="text-xl font-semibold transition-colors"
+                            style={{ color: 'inherit' }}
+                            onMouseEnter={(e) => e.currentTarget.style.color = '#39497E'}
+                            onMouseLeave={(e) => e.currentTarget.style.color = 'inherit'}
+                          >
+                            {assignment.title}
+                          </h3>
+                          {getStatusBadge(assignment)}
+                        </div>
                       <p className="text-gray-400 mb-3">{assignment.description}</p>
                       <div className="flex items-center gap-6 text-sm">
                         <div className="flex items-center gap-2 text-gray-400">
@@ -501,17 +555,21 @@ export default function AssignmentsPage() {
                           <ClipboardList size={14} />
                           <span>{assignment.points} points</span>
                         </div>
+                        </div>
                       </div>
                     </div>
+                    <button className={`p-2 rounded-lg transition-all ${
+                      theme === 'dark' ? 'hover:bg-white/10' : 'hover:bg-gray-200'
+                    }`}>
+                      <MoreVertical size={18} />
+                    </button>
                   </div>
-                  <button className="p-2 hover:bg-white/10 rounded-lg transition-all">
-                    <MoreVertical size={18} />
-                  </button>
-                </div>
 
-                {/* Submission Progress */}
-                {assignment.status !== 'draft' && (
-                  <div className="pt-4 border-t border-white/10">
+                  {/* Submission Progress */}
+                  {assignment.status !== 'draft' && (
+                    <div className={`pt-4 border-t ${
+                      theme === 'dark' ? 'border-white/10' : 'border-gray-200'
+                    }`}>
                     <div className="flex items-center justify-between mb-3">
                       <div className="text-sm text-gray-400">Submission Progress</div>
                       <div className="text-sm font-medium">
@@ -523,78 +581,48 @@ export default function AssignmentsPage() {
                         )}
                       </div>
                     </div>
-                    <div className="h-2 bg-white/5 rounded-full overflow-hidden mb-4">
-                      <div 
-                        className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all"
-                        style={{ width: `${assignment.assignedTo > 0 ? (assignment.submitted / assignment.assignedTo) * 100 : 0}%` }}
-                      ></div>
+                      <div className={`h-2 rounded-full overflow-hidden mb-4 ${
+                        theme === 'dark' ? 'bg-white/5' : 'bg-gray-200'
+                      }`}>
+                        <div 
+                          className="h-full transition-all"
+                          style={{ 
+                            width: `${assignment.assignedTo > 0 ? (assignment.submitted / assignment.assignedTo) * 100 : 0}%`,
+                            background: '#39497E'
+                          }}
+                        ></div>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-3">
-                      {assignment.submitted > 0 && (
-                        <button className="glass-subtle px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-white/10 transition-all text-sm">
-                          <Eye size={16} />
-                          Review {assignment.submitted} Submission{assignment.submitted !== 1 ? 's' : ''}
-                        </button>
-                      )}
-                      {assignment.status === 'draft' && (
-                        <button className="glass-strong px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-white/15 transition-all text-sm">
-                          <Send size={16} />
-                          Publish Assignment
-                        </button>
-                      )}
-                      <button className="glass-subtle px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-white/10 transition-all text-sm">
-                        <Edit size={16} />
-                        Edit
-                      </button>
-                      <button className="glass-subtle px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-white/10 transition-all text-sm">
-                        <Copy size={16} />
-                        Duplicate
-                      </button>
-                    </div>
-                  </div>
-                )}
-
-                {assignment.status === 'draft' && (
-                  <div className="pt-4 border-t border-white/10">
-                    <div className="flex items-center gap-3">
-                      <button className="glass-strong px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-white/15 transition-all text-sm">
-                        <Send size={16} />
-                        Publish to Students
-                      </button>
-                      <button className="glass-subtle px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-white/10 transition-all text-sm">
-                        <Edit size={16} />
-                        Edit Draft
-                      </button>
-                      <button className="glass-subtle px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-red-500/10 text-red-400 transition-all text-sm">
-                        <Trash2 size={16} />
-                        Delete
-                      </button>
-                    </div>
-                  </div>
+                  )}
+                </GlassCard>
+              ))
+            ) : (
+              <GlassCard className={`p-16 text-center border shadow-lg ${
+                theme === 'dark' 
+                  ? 'border-white/10 bg-white/5 shadow-black/30' 
+                  : 'border-gray-200 bg-white shadow-gray-300/30'
+              }`}>
+                <ClipboardList size={64} className="mx-auto mb-4 text-gray-600" />
+                <h3 className="text-2xl font-semibold mb-2">No assignments found</h3>
+                <p className="text-gray-400 mb-6">
+                  {activeTab === 'all' 
+                    ? 'Create your first assignment to get started'
+                    : `No ${activeTab} assignments at the moment`
+                  }
+                </p>
+                {activeTab === 'all' && (
+                  <button 
+                    onClick={() => setShowNewModal(true)}
+                    className="px-6 py-3 text-white rounded-lg text-sm font-medium transition-all backdrop-blur-xl border border-white/20 shadow-sm hover:shadow-md inline-flex items-center gap-2"
+                    style={{ background: 'linear-gradient(135deg, rgba(57, 73, 126, 0.9), rgba(57, 73, 126, 0.7))' }}
+                  >
+                    <Plus size={18} />
+                    Create Assignment
+                  </button>
                 )}
               </GlassCard>
-            ))
-          ) : (
-            <GlassCard className="p-16 text-center">
-              <ClipboardList size={64} className="mx-auto mb-4 text-gray-600" />
-              <h3 className="text-2xl font-semibold mb-2">No assignments found</h3>
-              <p className="text-gray-400 mb-6">
-                {activeTab === 'all' 
-                  ? 'Create your first assignment to get started'
-                  : `No ${activeTab} assignments at the moment`
-                }
-              </p>
-              {activeTab === 'all' && (
-                <button 
-                  onClick={() => setShowNewModal(true)}
-                  className="glass-strong px-6 py-3 rounded-xl hover:bg-white/15 transition-all"
-                >
-                  <Plus size={18} className="inline mr-2" />
-                  Create Assignment
-                </button>
-              )}
-            </GlassCard>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </DashboardLayout>

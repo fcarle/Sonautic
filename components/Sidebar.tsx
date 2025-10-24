@@ -75,13 +75,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ type }) => {
           <div className="flex items-center justify-between">
             {!isCollapsed && (
               <div className="flex items-center gap-3">
-                <Image
-                  src={theme === 'dark' ? '/sonautic_logo_white_on_black.png' : '/sonautic_logo_blue.png'}
-                  alt="Sonautic Logo"
-                  width={32}
-                  height={32}
-                  className="object-contain"
-                />
+                <div className="text-2xl">🐋</div>
                 <div>
                   <div className="text-lg font-semibold text-gray-300">
                     Sonautic
@@ -101,13 +95,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ type }) => {
           </div>
           {isCollapsed && (
             <div className="flex flex-col items-center gap-2">
-              <Image
-                src={theme === 'dark' ? '/sonautic_logo_white_on_black.png' : '/sonautic_logo_blue.png'}
-                alt="Sonautic Logo"
-                width={28}
-                height={28}
-                className="object-contain"
-              />
+              <div className="text-2xl">🐋</div>
             </div>
           )}
         </div>

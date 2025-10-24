@@ -255,7 +255,7 @@ export default function EducatorHome() {
                   // Handle assignment creation logic here
                   setShowCreateAssignmentModal(false)
                 }}
-                className="px-6 py-2.5 text-white rounded-lg text-sm font-medium transition-all backdrop-blur-xl border border-white/20 shadow-lg"
+                className="px-6 py-2.5 text-white rounded-lg text-sm font-medium transition-all backdrop-blur-xl border border-white/20 shadow-sm"
                 style={{ background: 'linear-gradient(135deg, rgba(57, 73, 126, 0.9), rgba(57, 73, 126, 0.7))' }}
               >
                 Create Assignment
@@ -433,7 +433,7 @@ export default function EducatorHome() {
                   // Handle task creation logic here
                   setShowAddTaskModal(false)
                 }}
-                className="px-6 py-2.5 text-white rounded-lg text-sm font-medium transition-all backdrop-blur-xl border border-white/20 shadow-lg"
+                className="px-6 py-2.5 text-white rounded-lg text-sm font-medium transition-all backdrop-blur-xl border border-white/20 shadow-sm"
                 style={{ background: 'linear-gradient(135deg, rgba(57, 73, 126, 0.9), rgba(57, 73, 126, 0.7))' }}
               >
                 Add Task
@@ -667,7 +667,7 @@ export default function EducatorHome() {
                   // Handle event creation logic here
                   setShowCreateEventModal(false)
                 }}
-                className="px-6 py-2.5 text-white rounded-lg text-sm font-medium transition-all backdrop-blur-xl border border-white/20 shadow-lg"
+                className="px-6 py-2.5 text-white rounded-lg text-sm font-medium transition-all backdrop-blur-xl border border-white/20 shadow-sm"
                 style={{ background: 'linear-gradient(135deg, rgba(57, 73, 126, 0.9), rgba(57, 73, 126, 0.7))' }}
               >
                 Create Event
@@ -677,23 +677,22 @@ export default function EducatorHome() {
         </div>
       )}
 
-      <div className="p-8 max-w-6xl">
-        {/* Welcome header */}
-        <div className="mb-6">
-          <h1 className="text-2xl font-medium mb-2">Welcome, David!</h1>
-          <p className="text-sm text-gray-500">Here's what's happening today</p>
-        </div>
+      <div className="w-full flex justify-center">
+        <div className="p-8 w-full max-w-6xl">
+          {/* Welcome header */}
+          <div className="mb-8">
+            <h1 className="text-3xl font-semibold mb-1">Welcome back, David!</h1>
+          </div>
 
-        {/* Navigation tabs */}
-        <div className="flex items-center gap-2 mb-8">
+          {/* Navigation tabs */}
+          <div className="flex items-center gap-2 mb-8">
           <button 
             onClick={() => setActiveTab('overview')}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
               activeTab === 'overview' 
-                ? 'text-white backdrop-blur-xl border border-white/20 shadow-lg' 
+                ? 'bg-indigo-500/80 text-white shadow-md border border-indigo-400/30' 
                 : 'bg-white/10 text-gray-400 hover:bg-white/15'
             }`}
-            style={activeTab === 'overview' ? { background: 'linear-gradient(135deg, rgba(57, 73, 126, 0.9), rgba(57, 73, 126, 0.7))' } : {}}
           >
             Overview
           </button>
@@ -701,10 +700,9 @@ export default function EducatorHome() {
             onClick={() => setActiveTab('assignments')}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
               activeTab === 'assignments' 
-                ? 'text-white backdrop-blur-xl border border-white/20 shadow-lg' 
+                ? 'bg-indigo-500/80 text-white shadow-md border border-indigo-400/30' 
                 : 'bg-white/10 text-gray-400 hover:bg-white/15'
             }`}
-            style={activeTab === 'assignments' ? { background: 'linear-gradient(135deg, rgba(57, 73, 126, 0.9), rgba(57, 73, 126, 0.7))' } : {}}
           >
             Assignments
           </button>
@@ -712,10 +710,9 @@ export default function EducatorHome() {
             onClick={() => setActiveTab('tasks')}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
               activeTab === 'tasks' 
-                ? 'text-white backdrop-blur-xl border border-white/20 shadow-lg' 
+                ? 'bg-indigo-500/80 text-white shadow-md border border-indigo-400/30' 
                 : 'bg-white/10 text-gray-400 hover:bg-white/15'
             }`}
-            style={activeTab === 'tasks' ? { background: 'linear-gradient(135deg, rgba(57, 73, 126, 0.9), rgba(57, 73, 126, 0.7))' } : {}}
           >
             Tasks
           </button>
@@ -723,10 +720,9 @@ export default function EducatorHome() {
             onClick={() => setActiveTab('events')}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
               activeTab === 'events' 
-                ? 'text-white backdrop-blur-xl border border-white/20 shadow-lg' 
+                ? 'bg-indigo-500/80 text-white shadow-md border border-indigo-400/30' 
                 : 'bg-white/10 text-gray-400 hover:bg-white/15'
             }`}
-            style={activeTab === 'events' ? { background: 'linear-gradient(135deg, rgba(57, 73, 126, 0.9), rgba(57, 73, 126, 0.7))' } : {}}
           >
             Events
           </button>
@@ -734,10 +730,9 @@ export default function EducatorHome() {
             onClick={() => setActiveTab('deadlines')}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
               activeTab === 'deadlines' 
-                ? 'text-white backdrop-blur-xl border border-white/20 shadow-lg' 
+                ? 'bg-indigo-500/80 text-white shadow-md border border-indigo-400/30' 
                 : 'bg-white/10 text-gray-400 hover:bg-white/15'
             }`}
-            style={activeTab === 'deadlines' ? { background: 'linear-gradient(135deg, rgba(57, 73, 126, 0.9), rgba(57, 73, 126, 0.7))' } : {}}
           >
             Deadlines
           </button>
@@ -745,10 +740,9 @@ export default function EducatorHome() {
             onClick={() => setActiveTab('timeline')}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
               activeTab === 'timeline' 
-                ? 'text-white backdrop-blur-xl border border-white/20 shadow-lg' 
+                ? 'bg-indigo-500/80 text-white shadow-md border border-indigo-400/30' 
                 : 'bg-white/10 text-gray-400 hover:bg-white/15'
             }`}
-            style={activeTab === 'timeline' ? { background: 'linear-gradient(135deg, rgba(57, 73, 126, 0.9), rgba(57, 73, 126, 0.7))' } : {}}
           >
             Timeline
           </button>
@@ -758,10 +752,16 @@ export default function EducatorHome() {
         {activeTab === 'overview' && (
           <>
             {/* Countdown Card */}
-            <GlassCard className="p-5 mb-8 border border-white/5">
+            <GlassCard className={`p-5 mb-8 border shadow-lg ${
+              theme === 'dark' 
+                ? 'border-white/10 bg-gradient-to-br from-white/10 to-white/5 shadow-black/20' 
+                : 'border-gray-200 bg-gradient-to-br from-white to-gray-50 shadow-gray-300/40'
+            }`}>
               <div className="flex items-center gap-4">
                 <div 
-                  className="w-14 h-14 rounded-xl flex items-center justify-center backdrop-blur-xl border border-white/20 shadow-lg"
+                  className={`w-14 h-14 rounded-xl flex items-center justify-center backdrop-blur-xl border border-white/20 shadow-lg ${
+                    theme === 'dark' ? 'shadow-indigo-900/30' : 'shadow-indigo-500/20'
+                  }`}
                   style={{ background: 'linear-gradient(135deg, rgba(57, 73, 126, 0.9), rgba(57, 73, 126, 0.7))' }}
                 >
                   <Calendar className="text-white" size={24} />
@@ -776,7 +776,11 @@ export default function EducatorHome() {
             {/* Main Content Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
               {/* Assignments Due */}
-              <GlassCard className="p-6 border border-white/5">
+              <GlassCard className={`p-6 border shadow-md ${
+                theme === 'dark' 
+                  ? 'border-white/10 bg-white/5 shadow-black/30' 
+                  : 'border-gray-200 bg-white shadow-gray-300/30'
+              }`}>
                 <div className="flex items-center justify-between mb-5">
                   <h3 className="text-base font-semibold">Assignments Due</h3>
                   <span className="text-xs text-gray-500">6 pending</span>
@@ -814,7 +818,11 @@ export default function EducatorHome() {
               </GlassCard>
 
               {/* Events Tomorrow */}
-              <GlassCard className="p-6 border border-white/5">
+              <GlassCard className={`p-6 border shadow-md ${
+                theme === 'dark' 
+                  ? 'border-white/10 bg-white/5 shadow-black/30' 
+                  : 'border-gray-200 bg-white shadow-gray-300/30'
+              }`}>
                 <div className="flex items-center justify-between mb-5">
                   <h3 className="text-base font-semibold">Events Tomorrow</h3>
                   <span className="text-xs text-gray-500">5 scheduled</span>
@@ -848,7 +856,11 @@ export default function EducatorHome() {
             </div>
 
             {/* Practice Hours Chart */}
-            <GlassCard className="p-6 border border-white/5">
+            <GlassCard className={`p-6 border shadow-md ${
+              theme === 'dark' 
+                ? 'border-white/10 bg-white/5 shadow-black/30' 
+                : 'border-gray-200 bg-white shadow-gray-300/30'
+            }`}>
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-base font-semibold">Practice Hours (Last 7 Days)</h3>
               </div>
@@ -902,12 +914,16 @@ export default function EducatorHome() {
         {/* Assignments Tab */}
         {activeTab === 'assignments' && (
           <div className="space-y-6">
-            <GlassCard className="p-6 border border-white/5">
+            <GlassCard className={`p-6 border shadow-lg ${
+              theme === 'dark' 
+                ? 'border-white/10 bg-white/5 shadow-black/30' 
+                : 'border-gray-200 bg-white shadow-gray-300/30'
+            }`}>
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-semibold">All Assignments</h3>
                 <button 
                   onClick={() => setShowCreateAssignmentModal(true)}
-                  className="px-4 py-2 text-white rounded-lg text-sm font-medium transition-all backdrop-blur-xl border border-white/20 shadow-lg hover:shadow-xl"
+                  className="px-4 py-2 text-white rounded-lg text-sm font-medium transition-all backdrop-blur-xl border border-white/20 shadow-sm hover:shadow-md"
                   style={{ background: 'linear-gradient(135deg, rgba(57, 73, 126, 0.9), rgba(57, 73, 126, 0.7))' }}
                 >
                   Create Assignment
@@ -1014,12 +1030,16 @@ export default function EducatorHome() {
         {/* Tasks Tab */}
         {activeTab === 'tasks' && (
           <div className="space-y-6">
-            <GlassCard className="p-6 border border-white/5">
+            <GlassCard className={`p-6 border shadow-lg ${
+              theme === 'dark' 
+                ? 'border-white/10 bg-white/5 shadow-black/30' 
+                : 'border-gray-200 bg-white shadow-gray-300/30'
+            }`}>
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-semibold">My Tasks</h3>
                 <button 
                   onClick={() => setShowAddTaskModal(true)}
-                  className="px-4 py-2 text-white rounded-lg text-sm font-medium transition-all backdrop-blur-xl border border-white/20 shadow-lg hover:shadow-xl"
+                  className="px-4 py-2 text-white rounded-lg text-sm font-medium transition-all backdrop-blur-xl border border-white/20 shadow-sm hover:shadow-md"
                   style={{ background: 'linear-gradient(135deg, rgba(57, 73, 126, 0.9), rgba(57, 73, 126, 0.7))' }}
                 >
                   Add Task
@@ -1028,17 +1048,29 @@ export default function EducatorHome() {
               
               {/* Task Categories */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                <div className="p-4 rounded-lg bg-red-600/10 border border-red-600/20">
-                  <div className="text-2xl font-bold text-red-400 mb-1">3</div>
-                  <div className="text-sm text-red-300">Urgent</div>
+                <div className={`p-5 rounded-xl border-2 shadow-lg ${
+                  theme === 'dark'
+                    ? 'bg-red-500/20 border-red-500/40 shadow-red-900/30'
+                    : 'bg-red-100 border-red-400 shadow-red-300/40'
+                }`}>
+                  <div className={`text-3xl font-bold mb-1 ${theme === 'dark' ? 'text-red-100' : 'text-red-700'}`}>3</div>
+                  <div className={`text-sm font-semibold ${theme === 'dark' ? 'text-red-200' : 'text-red-600'}`}>Urgent</div>
                 </div>
-                <div className="p-4 rounded-lg bg-yellow-600/10 border border-yellow-600/20">
-                  <div className="text-2xl font-bold text-yellow-400 mb-1">5</div>
-                  <div className="text-sm text-yellow-300">In Progress</div>
+                <div className={`p-5 rounded-xl border-2 shadow-lg ${
+                  theme === 'dark'
+                    ? 'bg-amber-500/20 border-amber-500/40 shadow-amber-900/30'
+                    : 'bg-amber-100 border-amber-400 shadow-amber-300/40'
+                }`}>
+                  <div className={`text-3xl font-bold mb-1 ${theme === 'dark' ? 'text-amber-100' : 'text-amber-700'}`}>5</div>
+                  <div className={`text-sm font-semibold ${theme === 'dark' ? 'text-amber-200' : 'text-amber-600'}`}>In Progress</div>
                 </div>
-                <div className="p-4 rounded-lg bg-green-600/10 border border-green-600/20">
-                  <div className="text-2xl font-bold text-green-400 mb-1">12</div>
-                  <div className="text-sm text-green-300">Completed Today</div>
+                <div className={`p-5 rounded-xl border-2 shadow-lg ${
+                  theme === 'dark'
+                    ? 'bg-emerald-500/20 border-emerald-500/40 shadow-emerald-900/30'
+                    : 'bg-emerald-100 border-emerald-400 shadow-emerald-300/40'
+                }`}>
+                  <div className={`text-3xl font-bold mb-1 ${theme === 'dark' ? 'text-emerald-100' : 'text-emerald-700'}`}>12</div>
+                  <div className={`text-sm font-semibold ${theme === 'dark' ? 'text-emerald-200' : 'text-emerald-600'}`}>Completed Today</div>
                 </div>
               </div>
 
@@ -1117,10 +1149,14 @@ export default function EducatorHome() {
                 ].map((task, index) => (
                   <div 
                     key={index}
-                    className={`p-4 rounded-lg transition-colors cursor-pointer border ${
+                    className={`p-4 rounded-lg transition-all cursor-pointer border ${
                       task.completed 
-                        ? 'bg-white/5 border-white/5 opacity-60' 
-                        : 'bg-white/5 hover:bg-white/10 border-white/5'
+                        ? theme === 'dark'
+                          ? 'bg-white/5 border-white/5 opacity-60 shadow-sm shadow-black/20'
+                          : 'bg-gray-50 border-gray-200 opacity-60 shadow-sm shadow-gray-200/40'
+                        : theme === 'dark'
+                        ? 'bg-white/5 hover:bg-white/10 border-white/10 shadow-sm hover:shadow-md shadow-black/20 hover:shadow-black/40'
+                        : 'bg-gray-50 hover:bg-gray-100 border-gray-200 shadow-sm hover:shadow-md shadow-gray-200/40 hover:shadow-gray-300/50'
                     }`}
                   >
                     <div className="flex items-start gap-3">
@@ -1172,12 +1208,16 @@ export default function EducatorHome() {
         {/* Events Tab */}
         {activeTab === 'events' && (
           <div className="space-y-6">
-            <GlassCard className="p-6 border border-white/5">
+            <GlassCard className={`p-6 border shadow-lg ${
+              theme === 'dark' 
+                ? 'border-white/10 bg-white/5 shadow-black/30' 
+                : 'border-gray-200 bg-white shadow-gray-300/30'
+            }`}>
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-semibold">Upcoming Events</h3>
                 <button 
                   onClick={() => setShowCreateEventModal(true)}
-                  className="px-4 py-2 text-white rounded-lg text-sm font-medium transition-all backdrop-blur-xl border border-white/20 shadow-lg hover:shadow-xl"
+                  className="px-4 py-2 text-white rounded-lg text-sm font-medium transition-all backdrop-blur-xl border border-white/20 shadow-sm hover:shadow-md"
                   style={{ background: 'linear-gradient(135deg, rgba(57, 73, 126, 0.9), rgba(57, 73, 126, 0.7))' }}
                 >
                   Create Event
@@ -1185,7 +1225,7 @@ export default function EducatorHome() {
               </div>
 
               {/* Calendar Week View */}
-              <div className="grid grid-cols-7 gap-3 mb-8">
+              <div className="grid grid-cols-7 gap-2 mb-8">
                 {[
                   { day: 'Mon', date: '23', isToday: true, eventCount: 4 },
                   { day: 'Tue', date: '24', isToday: false, eventCount: 5 },
@@ -1197,17 +1237,21 @@ export default function EducatorHome() {
                 ].map((day, index) => (
                   <div 
                     key={index}
-                    className={`p-3 rounded-lg text-center cursor-pointer transition-colors ${
+                    className={`p-2 rounded-lg text-center cursor-pointer transition-all ${
                       day.isToday 
-                        ? 'bg-indigo-600/20 border-2 border-indigo-600' 
-                        : 'bg-white/5 border border-white/5 hover:bg-white/10'
+                        ? theme === 'dark'
+                          ? 'bg-indigo-500/15 border border-indigo-400/50 shadow-md shadow-indigo-900/40'
+                          : 'bg-indigo-100 border border-indigo-400 shadow-md shadow-indigo-300/40'
+                        : theme === 'dark'
+                        ? 'bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/10 shadow-sm shadow-black/20 hover:shadow-md'
+                        : 'bg-gray-50 border border-gray-200 hover:bg-gray-100 hover:border-gray-300 shadow-sm shadow-gray-200/30 hover:shadow-md'
                     }`}
                   >
-                    <div className="text-xs text-gray-400 mb-1">{day.day}</div>
-                    <div className={`text-lg font-semibold mb-1 ${day.isToday ? 'text-indigo-400' : ''}`}>
+                    <div className="text-[9px] uppercase tracking-wider text-gray-400 mb-1 font-medium">{day.day}</div>
+                    <div className={`text-base font-semibold mb-1 ${day.isToday ? 'text-indigo-300' : 'text-gray-300'}`}>
                       {day.date}
                     </div>
-                    <div className="text-xs text-gray-500">{day.eventCount} events</div>
+                    <div className="text-[9px] text-gray-500 font-medium">{day.eventCount} events</div>
                   </div>
                 ))}
               </div>
@@ -1252,7 +1296,11 @@ export default function EducatorHome() {
                   ].map((event, index) => (
                     <div 
                       key={index}
-                      className="p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-colors cursor-pointer border border-white/5"
+                      className={`p-4 rounded-lg transition-all cursor-pointer border shadow-sm hover:shadow-md ${
+                        theme === 'dark'
+                          ? 'bg-white/5 hover:bg-white/10 border-white/10 shadow-black/20 hover:shadow-black/40'
+                          : 'bg-gray-50 hover:bg-gray-100 border-gray-200 shadow-gray-200/40 hover:shadow-gray-300/50'
+                      }`}
                     >
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex-1">
@@ -1331,7 +1379,11 @@ export default function EducatorHome() {
                   ].map((event, index) => (
                     <div 
                       key={index}
-                      className="p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-colors cursor-pointer border border-white/5"
+                      className={`p-4 rounded-lg transition-all cursor-pointer border shadow-sm hover:shadow-md ${
+                        theme === 'dark'
+                          ? 'bg-white/5 hover:bg-white/10 border-white/10 shadow-black/20 hover:shadow-black/40'
+                          : 'bg-gray-50 hover:bg-gray-100 border-gray-200 shadow-gray-200/40 hover:shadow-gray-300/50'
+                      }`}
                     >
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex-1">
@@ -1370,29 +1422,49 @@ export default function EducatorHome() {
           <div className="space-y-6">
             {/* Overview Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <GlassCard className="p-4 border border-white/5">
+              <GlassCard className={`p-4 border shadow-md ${
+                theme === 'dark'
+                  ? 'border-white/10 bg-white/5 shadow-black/30'
+                  : 'border-gray-200 bg-white shadow-gray-300/30'
+              }`}>
                 <div className="text-sm text-gray-400 mb-1">Overdue</div>
                 <div className="text-2xl font-bold text-red-400">2</div>
               </GlassCard>
-              <GlassCard className="p-4 border border-white/5">
+              <GlassCard className={`p-4 border shadow-md ${
+                theme === 'dark'
+                  ? 'border-white/10 bg-white/5 shadow-black/30'
+                  : 'border-gray-200 bg-white shadow-gray-300/30'
+              }`}>
                 <div className="text-sm text-gray-400 mb-1">Due Today</div>
                 <div className="text-2xl font-bold text-orange-400">4</div>
               </GlassCard>
-              <GlassCard className="p-4 border border-white/5">
+              <GlassCard className={`p-4 border shadow-md ${
+                theme === 'dark'
+                  ? 'border-white/10 bg-white/5 shadow-black/30'
+                  : 'border-gray-200 bg-white shadow-gray-300/30'
+              }`}>
                 <div className="text-sm text-gray-400 mb-1">This Week</div>
                 <div className="text-2xl font-bold text-yellow-400">8</div>
               </GlassCard>
-              <GlassCard className="p-4 border border-white/5">
+              <GlassCard className={`p-4 border shadow-md ${
+                theme === 'dark'
+                  ? 'border-white/10 bg-white/5 shadow-black/30'
+                  : 'border-gray-200 bg-white shadow-gray-300/30'
+              }`}>
                 <div className="text-sm text-gray-400 mb-1">This Month</div>
                 <div className="text-2xl font-bold text-blue-400">15</div>
               </GlassCard>
             </div>
 
             {/* Overdue Items */}
-            <GlassCard className="p-6 border border-red-600/20 bg-red-600/5">
+            <GlassCard className={`p-6 border shadow-lg ${
+              theme === 'dark'
+                ? 'border-red-600/20 bg-red-600/5 shadow-red-900/30'
+                : 'border-red-400 bg-red-50 shadow-red-300/30'
+            }`}>
               <div className="flex items-center justify-between mb-5">
-                <h3 className="text-base font-semibold text-red-400">Overdue Items</h3>
-                <span className="text-xs text-red-400">2 items</span>
+                <h3 className={`text-base font-semibold ${theme === 'dark' ? 'text-red-400' : 'text-red-600'}`}>Overdue Items</h3>
+                <span className={`text-xs ${theme === 'dark' ? 'text-red-400' : 'text-red-600'}`}>2 items</span>
               </div>
               <div className="space-y-3">
                 {[
@@ -1411,18 +1483,24 @@ export default function EducatorHome() {
                 ].map((item, index) => (
                   <div 
                     key={index}
-                    className="p-4 rounded-lg bg-red-600/10 hover:bg-red-600/15 transition-colors cursor-pointer border border-red-600/20"
+                    className={`p-4 rounded-lg transition-all cursor-pointer border shadow-sm hover:shadow-md ${
+                      theme === 'dark'
+                        ? 'bg-red-600/10 hover:bg-red-600/15 border-red-600/20 shadow-red-900/30 hover:shadow-red-900/50'
+                        : 'bg-red-100 hover:bg-red-200 border-red-300 shadow-red-300/30 hover:shadow-red-400/40'
+                    }`}
                   >
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex-1">
-                        <h4 className="text-sm font-semibold text-red-300">{item.title}</h4>
+                        <h4 className={`text-sm font-semibold ${theme === 'dark' ? 'text-red-300' : 'text-red-700'}`}>{item.title}</h4>
                         <p className="text-xs text-gray-400 mt-1">{item.type}</p>
                       </div>
-                      <span className="px-2 py-1 rounded text-xs font-medium bg-red-600/20 text-red-300">
+                      <span className={`px-2 py-1 rounded text-xs font-medium ${
+                        theme === 'dark' ? 'bg-red-600/20 text-red-300' : 'bg-red-200 text-red-700'
+                      }`}>
                         {item.daysOverdue} days overdue
                       </span>
                     </div>
-                    <div className="flex items-center gap-2 text-xs text-red-400">
+                    <div className={`flex items-center gap-2 text-xs ${theme === 'dark' ? 'text-red-400' : 'text-red-600'}`}>
                       <Clock size={12} />
                       <span>Was due: {item.dueDate}</span>
                     </div>
@@ -1432,10 +1510,14 @@ export default function EducatorHome() {
             </GlassCard>
 
             {/* Due Today */}
-            <GlassCard className="p-6 border border-orange-600/20 bg-orange-600/5">
+            <GlassCard className={`p-6 border shadow-lg ${
+              theme === 'dark'
+                ? 'border-orange-600/20 bg-orange-600/5 shadow-orange-900/30'
+                : 'border-orange-400 bg-orange-50 shadow-orange-300/30'
+            }`}>
               <div className="flex items-center justify-between mb-5">
-                <h3 className="text-base font-semibold text-orange-400">Due Today</h3>
-                <span className="text-xs text-orange-400">4 items</span>
+                <h3 className={`text-base font-semibold ${theme === 'dark' ? 'text-orange-400' : 'text-orange-600'}`}>Due Today</h3>
+                <span className={`text-xs ${theme === 'dark' ? 'text-orange-400' : 'text-orange-600'}`}>4 items</span>
               </div>
               <div className="space-y-3">
                 {[
@@ -1466,7 +1548,11 @@ export default function EducatorHome() {
                 ].map((item, index) => (
                   <div 
                     key={index}
-                    className="p-4 rounded-lg bg-orange-600/10 hover:bg-orange-600/15 transition-colors cursor-pointer border border-orange-600/20"
+                    className={`p-4 rounded-lg transition-all cursor-pointer border shadow-sm hover:shadow-md ${
+                      theme === 'dark'
+                        ? 'bg-orange-600/10 hover:bg-orange-600/15 border-orange-600/20 shadow-orange-900/30 hover:shadow-orange-900/50'
+                        : 'bg-orange-100 hover:bg-orange-200 border-orange-300 shadow-orange-300/30 hover:shadow-orange-400/40'
+                    }`}
                   >
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex-1">
@@ -1475,11 +1561,13 @@ export default function EducatorHome() {
                           <p className="text-xs text-gray-400 mt-1">Student: {item.student}</p>
                         )}
                       </div>
-                      <span className="px-2 py-1 rounded text-xs font-medium bg-orange-600/20 text-orange-300">
+                      <span className={`px-2 py-1 rounded text-xs font-medium ${
+                        theme === 'dark' ? 'bg-orange-600/20 text-orange-300' : 'bg-orange-200 text-orange-700'
+                      }`}>
                         {item.type}
                       </span>
                     </div>
-                    <div className="flex items-center gap-2 text-xs text-orange-400">
+                    <div className={`flex items-center gap-2 text-xs ${theme === 'dark' ? 'text-orange-400' : 'text-orange-600'}`}>
                       <Clock size={12} />
                       <span>Today, {item.time}</span>
                     </div>
@@ -1489,7 +1577,11 @@ export default function EducatorHome() {
             </GlassCard>
 
             {/* This Week */}
-            <GlassCard className="p-6 border border-white/5">
+            <GlassCard className={`p-6 border shadow-lg ${
+              theme === 'dark'
+                ? 'border-white/10 bg-white/5 shadow-black/30'
+                : 'border-gray-200 bg-white shadow-gray-300/30'
+            }`}>
               <div className="flex items-center justify-between mb-5">
                 <h3 className="text-base font-semibold">Due This Week</h3>
                 <span className="text-xs text-gray-500">8 items</span>
@@ -1555,7 +1647,11 @@ export default function EducatorHome() {
                 ].map((item, index) => (
                   <div 
                     key={index}
-                    className="p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-colors cursor-pointer border border-white/5"
+                    className={`p-4 rounded-lg transition-all cursor-pointer border shadow-sm hover:shadow-md ${
+                      theme === 'dark'
+                        ? 'bg-white/5 hover:bg-white/10 border-white/10 shadow-black/20 hover:shadow-black/40'
+                        : 'bg-gray-50 hover:bg-gray-100 border-gray-200 shadow-gray-200/40 hover:shadow-gray-300/50'
+                    }`}
                   >
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex-1">
@@ -1587,7 +1683,11 @@ export default function EducatorHome() {
             </GlassCard>
 
             {/* Upcoming (This Month) */}
-            <GlassCard className="p-6 border border-white/5">
+            <GlassCard className={`p-6 border shadow-lg ${
+              theme === 'dark'
+                ? 'border-white/10 bg-white/5 shadow-black/30'
+                : 'border-gray-200 bg-white shadow-gray-300/30'
+            }`}>
               <div className="flex items-center justify-between mb-5">
                 <h3 className="text-base font-semibold">Later This Month</h3>
                 <span className="text-xs text-gray-500">7 more items</span>
@@ -1604,7 +1704,11 @@ export default function EducatorHome() {
                 ].map((item, index) => (
                   <div 
                     key={index}
-                    className="p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors cursor-pointer border border-white/5"
+                    className={`p-3 rounded-lg transition-all cursor-pointer border shadow-sm hover:shadow-md ${
+                      theme === 'dark'
+                        ? 'bg-white/5 hover:bg-white/10 border-white/10 shadow-black/20 hover:shadow-black/40'
+                        : 'bg-gray-50 hover:bg-gray-100 border-gray-200 shadow-gray-200/40 hover:shadow-gray-300/50'
+                    }`}
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
@@ -1629,11 +1733,14 @@ export default function EducatorHome() {
         {activeTab === 'timeline' && (
           <div className="space-y-6">
             {/* Filter Options */}
-            <GlassCard className="p-4 border border-white/5">
+            <GlassCard className={`p-4 border shadow-md ${
+              theme === 'dark'
+                ? 'border-white/10 bg-white/5 shadow-black/30'
+                : 'border-gray-200 bg-white shadow-gray-300/30'
+            }`}>
               <div className="flex items-center gap-3 flex-wrap">
                 <span className="text-sm font-medium text-gray-400">Filter:</span>
-                <button className="px-3 py-1.5 rounded-full text-xs font-medium transition-all backdrop-blur-xl border border-white/20 text-white shadow-lg" 
-                  style={{ background: 'linear-gradient(135deg, rgba(57, 73, 126, 0.9), rgba(57, 73, 126, 0.7))' }}>
+                <button className="px-3 py-1.5 rounded-full text-xs font-medium bg-indigo-500/80 text-white shadow-md border border-indigo-400/30 transition-all">
                   All Activities
                 </button>
                 <button className="px-3 py-1.5 rounded-full text-xs font-medium bg-white/10 text-gray-400 hover:bg-white/15 transition-colors">
@@ -1652,7 +1759,11 @@ export default function EducatorHome() {
             </GlassCard>
 
             {/* Timeline */}
-            <GlassCard className="p-6 border border-white/5">
+            <GlassCard className={`p-6 border shadow-lg ${
+              theme === 'dark'
+                ? 'border-white/10 bg-white/5 shadow-black/30'
+                : 'border-gray-200 bg-white shadow-gray-300/30'
+            }`}>
               <h3 className="text-lg font-semibold mb-6">Activity Timeline</h3>
               
               <div className="relative">
@@ -1670,7 +1781,7 @@ export default function EducatorHome() {
                         }`}
                         style={{ borderColor: 'rgba(57, 73, 126, 1)' }}
                       >
-                        <span className="text-xs font-bold" style={{ color: 'rgba(57, 73, 126, 1)' }}>NOW</span>
+                        <span className="text-[9px] font-bold" style={{ color: 'rgba(57, 73, 126, 1)' }}>NOW</span>
                       </div>
                     </div>
                     <div className="flex-1 pt-2">
@@ -1691,10 +1802,10 @@ export default function EducatorHome() {
                         <CheckCircle size={18} style={{ color: 'rgba(57, 73, 126, 1)' }} />
                       </div>
                     </div>
-                    <div className={`flex-1 p-4 rounded-lg border transition-colors cursor-pointer ${
+                    <div className={`flex-1 p-4 rounded-lg border transition-all cursor-pointer shadow-sm hover:shadow-md ${
                       theme === 'dark' 
-                        ? 'bg-white/5 hover:bg-white/10 border-white/5' 
-                        : 'bg-gray-50 hover:bg-gray-100 border-gray-200'
+                        ? 'bg-white/5 hover:bg-white/10 border-white/10 shadow-black/20 hover:shadow-black/40' 
+                        : 'bg-gray-50 hover:bg-gray-100 border-gray-200 shadow-gray-200/40 hover:shadow-gray-300/50'
                     }`}>
                       <div className="flex items-start justify-between mb-2">
                         <div className="flex-1">
@@ -1702,7 +1813,7 @@ export default function EducatorHome() {
                           <p className="text-sm text-gray-400">Emma Johnson submitted "Bach Prelude Practice"</p>
                         </div>
                         <span 
-                          className="px-3 py-1 rounded-full text-xs text-white"
+                          className="px-3 py-1 rounded-full text-xs text-white shadow-sm"
                           style={{ background: 'rgba(57, 73, 126, 0.8)' }}
                         >
                           Submitted
@@ -1724,10 +1835,10 @@ export default function EducatorHome() {
                         <CheckCircle size={18} style={{ color: 'rgba(57, 73, 126, 1)' }} />
                       </div>
                     </div>
-                    <div className={`flex-1 p-4 rounded-lg border transition-colors cursor-pointer ${
+                    <div className={`flex-1 p-4 rounded-lg border transition-all cursor-pointer shadow-sm hover:shadow-md ${
                       theme === 'dark' 
-                        ? 'bg-white/5 hover:bg-white/10 border-white/5' 
-                        : 'bg-gray-50 hover:bg-gray-100 border-gray-200'
+                        ? 'bg-white/5 hover:bg-white/10 border-white/10 shadow-black/20 hover:shadow-black/40' 
+                        : 'bg-gray-50 hover:bg-gray-100 border-gray-200 shadow-gray-200/40 hover:shadow-gray-300/50'
                     }`}>
                       <div className="flex items-start justify-between mb-2">
                         <div className="flex-1">
@@ -1735,7 +1846,7 @@ export default function EducatorHome() {
                           <p className="text-sm text-gray-400">You completed "Update curriculum materials"</p>
                         </div>
                         <span 
-                          className="px-3 py-1 rounded-full text-xs text-white"
+                          className="px-3 py-1 rounded-full text-xs text-white shadow-sm"
                           style={{ background: 'rgba(57, 73, 126, 0.8)' }}
                         >
                           Task
@@ -1757,10 +1868,10 @@ export default function EducatorHome() {
                         <Calendar size={18} style={{ color: 'rgba(57, 73, 126, 1)' }} />
                       </div>
                     </div>
-                    <div className={`flex-1 p-4 rounded-lg border transition-colors cursor-pointer ${
+                    <div className={`flex-1 p-4 rounded-lg border transition-all cursor-pointer shadow-sm hover:shadow-md ${
                       theme === 'dark' 
-                        ? 'bg-white/5 hover:bg-white/10 border-white/5' 
-                        : 'bg-gray-50 hover:bg-gray-100 border-gray-200'
+                        ? 'bg-white/5 hover:bg-white/10 border-white/10 shadow-black/20 hover:shadow-black/40' 
+                        : 'bg-gray-50 hover:bg-gray-100 border-gray-200 shadow-gray-200/40 hover:shadow-gray-300/50'
                     }`}>
                       <div className="flex items-start justify-between mb-2">
                         <div className="flex-1">
@@ -1768,7 +1879,7 @@ export default function EducatorHome() {
                           <p className="text-sm text-gray-400">Piano Lesson with Michael Chen - Room 101</p>
                         </div>
                         <span 
-                          className="px-3 py-1 rounded-full text-xs text-white"
+                          className="px-3 py-1 rounded-full text-xs text-white shadow-sm"
                           style={{ background: 'rgba(57, 73, 126, 0.8)' }}
                         >
                           Lesson
@@ -1790,10 +1901,10 @@ export default function EducatorHome() {
                         <Clock size={18} style={{ color: 'rgba(57, 73, 126, 1)' }} />
                       </div>
                     </div>
-                    <div className={`flex-1 p-4 rounded-lg border transition-colors cursor-pointer ${
+                    <div className={`flex-1 p-4 rounded-lg border transition-all cursor-pointer shadow-sm hover:shadow-md ${
                       theme === 'dark' 
-                        ? 'bg-white/5 hover:bg-white/10 border-white/5' 
-                        : 'bg-gray-50 hover:bg-gray-100 border-gray-200'
+                        ? 'bg-white/5 hover:bg-white/10 border-white/10 shadow-black/20 hover:shadow-black/40' 
+                        : 'bg-gray-50 hover:bg-gray-100 border-gray-200 shadow-gray-200/40 hover:shadow-gray-300/50'
                     }`}>
                       <div className="flex items-start justify-between mb-2">
                         <div className="flex-1">
@@ -1801,7 +1912,7 @@ export default function EducatorHome() {
                           <p className="text-sm text-gray-400">Morning practice session completed - Studio A</p>
                         </div>
                         <span 
-                          className="px-3 py-1 rounded-full text-xs text-white"
+                          className="px-3 py-1 rounded-full text-xs text-white shadow-sm"
                           style={{ background: 'rgba(57, 73, 126, 0.8)' }}
                         >
                           Practice
@@ -1838,10 +1949,10 @@ export default function EducatorHome() {
                         <span className="text-lg font-bold" style={{ color: 'rgba(57, 73, 126, 1)' }}>+</span>
                       </div>
                     </div>
-                    <div className={`flex-1 p-4 rounded-lg border transition-colors cursor-pointer ${
+                    <div className={`flex-1 p-4 rounded-lg border transition-all cursor-pointer shadow-sm hover:shadow-md ${
                       theme === 'dark' 
-                        ? 'bg-white/5 hover:bg-white/10 border-white/5' 
-                        : 'bg-gray-50 hover:bg-gray-100 border-gray-200'
+                        ? 'bg-white/5 hover:bg-white/10 border-white/10 shadow-black/20 hover:shadow-black/40' 
+                        : 'bg-gray-50 hover:bg-gray-100 border-gray-200 shadow-gray-200/40 hover:shadow-gray-300/50'
                     }`}>
                       <div className="flex items-start justify-between mb-2">
                         <div className="flex-1">
@@ -1849,7 +1960,7 @@ export default function EducatorHome() {
                           <p className="text-sm text-gray-400">Created "Composition Exercise" for Sarah Williams</p>
                         </div>
                         <span 
-                          className="px-3 py-1 rounded-full text-xs text-white"
+                          className="px-3 py-1 rounded-full text-xs text-white shadow-sm"
                           style={{ background: 'rgba(57, 73, 126, 0.8)' }}
                         >
                           Assignment
@@ -1862,10 +1973,10 @@ export default function EducatorHome() {
                   <div className="relative flex items-start gap-6">
                     <div className="w-16 flex-shrink-0"></div>
                     <div className="flex-1">
-                      <button className={`w-full p-3 rounded-lg border text-sm transition-colors ${
+                      <button className={`w-full p-3 rounded-lg border text-sm transition-colors shadow-sm hover:shadow-md ${
                         theme === 'dark'
-                          ? 'bg-white/5 hover:bg-white/10 border-white/5 text-gray-400 hover:text-white'
-                          : 'bg-gray-50 hover:bg-gray-100 border-gray-200 text-gray-600 hover:text-gray-900'
+                          ? 'bg-white/5 hover:bg-white/10 border-white/10 text-gray-400 hover:text-white shadow-black/20 hover:shadow-black/40'
+                          : 'bg-gray-50 hover:bg-gray-100 border-gray-200 text-gray-600 hover:text-gray-900 shadow-gray-200/40 hover:shadow-gray-300/50'
                       }`}>
                         Load More Activities
                       </button>
@@ -1879,11 +1990,16 @@ export default function EducatorHome() {
 
         {/* Other tabs placeholder */}
         {activeTab !== 'overview' && activeTab !== 'assignments' && activeTab !== 'tasks' && activeTab !== 'events' && activeTab !== 'deadlines' && activeTab !== 'timeline' && (
-          <GlassCard className="p-12 border border-white/5 text-center">
+          <GlassCard className={`p-12 border shadow-lg text-center ${
+            theme === 'dark'
+              ? 'border-white/10 bg-white/5 shadow-black/30'
+              : 'border-gray-200 bg-white shadow-gray-300/30'
+          }`}>
             <h3 className="text-xl font-semibold mb-2 capitalize">{activeTab}</h3>
             <p className="text-gray-500">Content for {activeTab} coming soon...</p>
           </GlassCard>
         )}
+        </div>
       </div>
     </DashboardLayout>
   )
